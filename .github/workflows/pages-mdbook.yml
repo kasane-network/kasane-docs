@@ -48,12 +48,12 @@ jobs:
           <html lang="en">
             <head>
               <meta charset="utf-8" />
-              <meta http-equiv="refresh" content="0; url=/en/" />
+              <meta http-equiv="refresh" content="0; url=/kasane-docs/en/" />
               <meta name="viewport" content="width=device-width, initial-scale=1" />
               <title>Kasane Developer Docs</title>
             </head>
             <body>
-              <p>Redirecting to <a href="/en/">/en/</a>...</p>
+              <p>Redirecting to <a href="/kasane-docs/en/">/kasane-docs/en/</a>...</p>
             </body>
           </html>
           HTML

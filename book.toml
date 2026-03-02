@@ -15,4 +15,4 @@ create-missing = false
 [output.html]
 default-theme = "light"
 preferred-dark-theme = "navy"
-site-url = "/ja/"
+site-url = "/kasane-docs/ja/"
