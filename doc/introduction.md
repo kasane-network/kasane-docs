@@ -12,7 +12,7 @@ JSON-RPCは Ethereum完全互換ではなく、開発用途の制限付き互換
 - indexer で `export_blocks` を pull し、Postgresへ保持する
 
 ## できないこと（現行実装）
-- Ethereumノード完全互換（mempool/filter/WebSocket full）
+- Ethereumノード完全互換（mempool/filter/WebSocket full、`eth_pendingTransactions` など）
 - node運用向けワークフローの提供（本書対象外）
 
 ## 互換の立ち位置

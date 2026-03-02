@@ -13,6 +13,18 @@
 - できること: 基本参照、call、estimate、raw tx投入
 - できないこと: filter/ws/pending完全互換
 
+## Pending/Mempoolポリシー
+- Ethereum互換APIとしての pending/mempool（例: `eth_pendingTransactions`, `eth_subscribe`）は未対応。
+- ただし canister Candid には `get_pending(tx_id)` があり、送信済み tx を個別追跡できる。
+- 送信成功判定は submit戻り値ではなく receipt ベース（`status`）で行う。
+- 詳細は以下を参照:
+  - `../quickstart.md`
+  - `../compatibility/json-rpc-deviations.md`
+  - `../compatibility/ethereum-differences.md`
+  - `../concepts/accounts-keys.md`
+  - `../_generated/interfaces.md`
+
 ## 根拠
 - `tools/rpc-gateway/src/handlers.ts`（`handleRpc`）
 - `tools/rpc-gateway/README.md`
+- `crates/ic-evm-wrapper/src/lib.rs`（`get_pending`）

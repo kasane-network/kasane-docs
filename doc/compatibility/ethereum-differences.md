@@ -3,7 +3,8 @@
 ## TL;DR
 - 互換対象は Ethereum JSON-RPC + EVM実行意味論（完全互換ではない）。
 - tx type は Legacy/EIP-2930/EIP-1559 を受理、EIP-4844/EIP-7702 は拒否。
-- pending/mempool を提供しない。
+- Ethereum互換の pending/mempool API は提供しない（`eth_pendingTransactions` など）。
+- ただし canister Candid では `get_pending(tx_id)` による個別追跡を提供する。
 - 単一シーケンサ前提で reorg前提挙動は提供しない。
 
 ## できること / できないこと

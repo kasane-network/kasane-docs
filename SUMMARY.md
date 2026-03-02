@@ -35,6 +35,9 @@
 
 * [Solidity/Vyper Notes](doc/contracts/solidity-vyper-compatibility.md)
 * [Tooling (Hardhat/Foundry/ethers/viem)](doc/contracts/tooling.md)
+
+## Explorer
+
 * [Verification](doc/contracts/verification.md)
 
 ## SDKs & Integration

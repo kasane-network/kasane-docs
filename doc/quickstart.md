@@ -16,7 +16,8 @@
 - query系の状態参照（balance/code/storage/call/estimate）
 
 ### できないこと（現行）
-- pending/mempool 前提のフロー
+- Ethereum標準の pending/mempool API 前提のフロー（`eth_pendingTransactions` など）
+- （補足）canister直呼びでは `get_pending(tx_id)` による個別追跡は可能
 - WebSocket購読（`eth_subscribe`）
 - `eth_getLogs` の完全互換（filter制約あり）
 
