@@ -95,34 +95,56 @@ dfx canister call --network "$NETWORK" --query "$CANISTER_ID" rpc_eth_block_numb
 ```
 
 ### 2) `submit_ic_tx`（IcSynthetic）
-`submit_ic_tx` は以下フォーマットの `vec nat8` を受け取る:
-- `[version:1][to:20][value:32][gas_limit:8][nonce:8][max_fee_per_gas:16][max_priority_fee_per_gas:16][data_len:4][data]`
-
-`submit_ic_tx` の実際の version 値は `2`（IcSynthetic v2）です。
+`submit_ic_tx` は `record` を受け取る:
+- `to: opt vec nat8`（`Some`時は20 bytes、`None`はcreate）
+- `value: nat`
+- `gas_limit: nat64`
+- `nonce: nat64`
+- `max_fee_per_gas: nat`
+- `max_priority_fee_per_gas: nat`
+- `data: vec nat8`
 
 `IcSynthetic` では `from` をpayloadに含めません。  
 wrapper が `msg_caller()` と `canister_self()` を付与して core の `TxIn::IcSynthetic` に渡し、sender を決定します。
 
 ```bash
-# 例: version=2 / to=0x...01 / value=0 / gas_limit=500000 / data=""
+# 例: to=0x...01 / value=0 / gas_limit=500000 / data=""
 # 注: fee は現行の最小受理条件（min_gas_price/min_priority_fee）以上に設定する。
-TX_BYTES="$(python - <<'PY'
-version = b'\x02'
+TO_BYTES="$(python - <<'PY'
 to = bytes.fromhex('0000000000000000000000000000000000000001')
-value = (0).to_bytes(32, 'big')
-gas_limit = (500000).to_bytes(8, 'big')
-nonce = (0).to_bytes(8, 'big')
-max_fee = (500_000_000_000).to_bytes(16, 'big')
-max_priority = (250_000_000_000).to_bytes(16, 'big')
-data = b''
-data_len = len(data).to_bytes(4, 'big')
-tx = version + to + value + gas_limit + nonce + max_fee + max_priority + data_len + data
-print('; '.join(str(b) for b in tx))
+print('; '.join(str(b) for b in to))
 PY
 )"
 
-dfx canister call --network "$NETWORK" "$CANISTER_ID" submit_ic_tx "(vec { $TX_BYTES })"
+dfx canister call --network "$NETWORK" "$CANISTER_ID" submit_ic_tx "(record {
+  to = opt vec { $TO_BYTES };
+  value = 0 : nat;
+  gas_limit = 500000 : nat64;
+  nonce = 0 : nat64;
+  max_fee_per_gas = 500000000000 : nat;
+  max_priority_fee_per_gas = 250000000000 : nat;
+  data = vec { };
+})"
 ```
+
+### 2.0) `submit_ic_tx` 送信手順
+運用は次の順で固定すると事故を減らせます。
+
+1. 送信前に chain/network を確認する  
+   - `rpc_eth_chain_id` が `4801360` であること
+2. 送信元nonceを確認する  
+   - `expected_nonce_by_address(20 bytes)` を呼び、現在nonceを取得
+3. fee/gasを決める  
+   - `rpc_eth_gas_price` / `rpc_eth_max_priority_fee_per_gas` を参照し、下限以上を設定
+4. `submit_ic_tx(record)` を1回送る  
+   - 返り値 `tx_id` を保存
+5. 実行結果を追跡する  
+   - `get_pending(tx_id)` で状態確認
+   - `get_receipt(tx_id)` が取得できたら `status` で成功/失敗判定
+
+注意:
+- `submit_ic_tx` の成功は「受付成功」です。実行成功は `receipt.status` で判定してください。
+- `tx_id` は内部キーであり、`eth_tx_hash` とは別です。
 
 ### 2.1) `submit_ic_tx` 検証フロー（重要）
 - pre-submit guard
