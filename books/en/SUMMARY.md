@@ -15,7 +15,7 @@
 * [Blocks, Receipts, Logs](doc/concepts/blocks-receipts-logs.md)
 * [Finality & Reorg](doc/concepts/finality-reorg.md)
 
-## Compatibility Notes
+## Compatibility
 
 * [Ethereum Differences](doc/compatibility/ethereum-differences.md)
 * [JSON-RPC Deviations](doc/compatibility/json-rpc-deviations.md)
@@ -33,7 +33,7 @@
 
 ## Smart Contracts
 
-* [Solidity/Vyper Notes](doc/contracts/solidity-vyper-compatibility.md)
+* [Solidity/Vyper Compatibility](doc/contracts/solidity-vyper-compatibility.md)
 * [Tooling (Hardhat/Foundry/ethers/viem)](doc/contracts/tooling.md)
 
 ## Explorer

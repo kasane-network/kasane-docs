@@ -1,0 +1,13 @@
+[book]
+title = "Kasane Developer Docs"
+description = "Kasane EVM compatibility documentation"
+language = "en"
+src = "."
+
+[build]
+create-missing = false
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+site-url = "/en/"
