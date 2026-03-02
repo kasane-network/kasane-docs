@@ -2,9 +2,10 @@
 
 This repository manages and publishes Kasane developer documentation with `mdBook`.
 
-## mdBook
-- Official site: https://rust-lang.github.io/mdBook/
-- GitHub: https://github.com/rust-lang/mdBook
+## Production Docs URL
+- Root: https://kasane-network.github.io/kasane-docs/
+- English: https://kasane-network.github.io/kasane-docs/en/
+- Japanese: https://kasane-network.github.io/kasane-docs/ja/
 
 ## Repository Structure
 - Japanese (source of truth): `books/ja/doc/**`
