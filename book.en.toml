@@ -11,4 +11,4 @@ create-missing = false
 [output.html]
 default-theme = "light"
 preferred-dark-theme = "navy"
-site-url = "/en/"
+site-url = "/kasane-docs/en/"
