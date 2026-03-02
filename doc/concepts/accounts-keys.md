@@ -9,7 +9,7 @@
 - Eth signed txの署名senderを使う
 - Principal由来sender（IcSynthetic）を使う
 
-## できないこと
+## 制約
 - bytes32風の値を20 bytes addressとして扱う
 
 ## `EthSigned` と `IcSynthetic` の違い

@@ -11,7 +11,7 @@ JSON-RPCは Ethereum完全互換ではなく、開発用途の制限付き互換
 - canister query/update で直接EVM機能を呼ぶ
 - indexer で `export_blocks` を pull し、Postgresへ保持する
 
-## できないこと（現行実装）
+## 主な制約（現行実装）
 - Ethereum JSON-RPC 互換は制限付き（未対応メソッドは互換仕様ページを参照）
 - node運用向けワークフローの提供（本書対象外）
 
