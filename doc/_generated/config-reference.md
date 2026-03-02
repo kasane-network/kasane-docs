@@ -1,4 +1,4 @@
-# Config Reference（自動生成）
+# Config Reference
 
 ## TL;DR
 - 必須設定は Gateway: `EVM_CANISTER_ID`、Indexer: `EVM_CANISTER_ID` + `INDEXER_DATABASE_URL`。

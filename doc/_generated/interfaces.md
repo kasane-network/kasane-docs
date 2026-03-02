@@ -1,4 +1,4 @@
-# Interfaces（自動生成）
+# Interfaces
 
 ## TL;DR
 - 外部I/Fは `Candid`（canister直呼び）と `HTTP JSON-RPC`（gateway）の2系統。

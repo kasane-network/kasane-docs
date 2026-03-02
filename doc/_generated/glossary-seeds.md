@@ -1,4 +1,4 @@
-# Glossary Seeds（自動生成）
+# Glossary Seeds
 
 - `tx_id`
   - canister内部識別子（32 bytes）
