@@ -1,7 +1,3 @@
-# Deprecated: use language-specific configs instead.
-# - Japanese: book.ja.toml
-# - English:  book.en.toml
-
 [book]
 title = "Kasane Developer Docs"
 description = "Kasane EVM compatibility documentation"

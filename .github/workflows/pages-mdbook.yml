@@ -31,13 +31,37 @@ jobs:
         with:
           mdbook-version: "latest"
 
-      - name: Build book
-        run: mdbook build
+      - name: Verify i18n sync
+        run: scripts/docs/verify_i18n_sync.sh
+
+      - name: Build JA/EN books
+        run: scripts/docs/build_books.sh
+
+      - name: Assemble public directory
+        run: |
+          rm -rf public
+          mkdir -p public/ja public/en
+          cp -R build/ja/. public/ja/
+          cp -R build/en/. public/en/
+          cat > public/index.html <<'HTML'
+          <!doctype html>
+          <html lang="en">
+            <head>
+              <meta charset="utf-8" />
+              <meta http-equiv="refresh" content="0; url=/en/" />
+              <meta name="viewport" content="width=device-width, initial-scale=1" />
+              <title>Kasane Developer Docs</title>
+            </head>
+            <body>
+              <p>Redirecting to <a href="/en/">/en/</a>...</p>
+            </body>
+          </html>
+          HTML
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: book
+          path: public
 
   deploy:
     environment:

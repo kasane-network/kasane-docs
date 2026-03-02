@@ -1,0 +1,71 @@
+<!-- ja-source-hash: 7690a8d9d9b1801e8899b26abdc26474d50356dc -->
+> Japanese version: /ja/doc/compatibility/precompiles-system-contracts.html
+
+# Precompiles & System Contracts
+
+## TL;DR
+- Precompile failures are classified as `exec.halt.precompile_error`.
+- Kasane uses `revm` mainnet precompile set without custom address overrides.
+- Current default is `SpecId::default = PRAGUE`, so OSAKA-added `0x0100 (P256VERIFY)` is not enabled by default.
+- Opcode-level discussion is out of scope for this page (see `ethereum-differences.md`).
+
+## Operational Policy
+- Use `exec.halt.precompile_error` as the primary classifier for precompile failures.
+- Smoke-test precompile-dependent paths before mainnet rollout.
+
+## Supported Precompiles (Current Default: PRAGUE)
+
+| Address | Name | Introduced In | Notes |
+|---|---|---|---|
+| `0x01` | `ECREC` | Homestead | secp256k1 ecrecover |
+| `0x02` | `SHA256` | Homestead |  |
+| `0x03` | `RIPEMD160` | Homestead |  |
+| `0x04` | `ID` | Homestead | identity |
+| `0x05` | `MODEXP` | Byzantium | Berlin gas formula applies under Prague |
+| `0x06` | `BN254_ADD` | Byzantium | gas-updated since Istanbul |
+| `0x07` | `BN254_MUL` | Byzantium | gas-updated since Istanbul |
+| `0x08` | `BN254_PAIRING` | Byzantium | gas-updated since Istanbul |
+| `0x09` | `BLAKE2F` | Istanbul |  |
+| `0x0a` | `KZG_POINT_EVALUATION` | Cancun | enabled in current build (`c-kzg` / `blst` / `arkworks`) |
+| `0x0b` | `BLS12_G1ADD` | Prague | EIP-2537 |
+| `0x0c` | `BLS12_G1MSM` | Prague | EIP-2537 |
+| `0x0d` | `BLS12_G2ADD` | Prague | EIP-2537 |
+| `0x0e` | `BLS12_G2MSM` | Prague | EIP-2537 |
+| `0x0f` | `BLS12_PAIRING_CHECK` | Prague | EIP-2537 |
+| `0x10` | `BLS12_MAP_FP_TO_G1` | Prague | EIP-2537 |
+| `0x11` | `BLS12_MAP_FP2_TO_G2` | Prague | EIP-2537 |
+
+### Added in OSAKA but disabled by current default
+- `0x0100` (`P256VERIFY`, RIP-7212)
+
+## Implementation Assumptions
+- `evm-core` uses `Context::mainnet().build_mainnet_with_inspector(...)` and directly relies on `revm` mainnet builder.
+- Precompile set is selected via `EthPrecompiles::new(spec)` on the mainnet builder side.
+- `SpecId::default()` is `PRAGUE`.
+
+## Observable Facts
+- Execution error taxonomy includes `PrecompileError`.
+- Wrapper maps it to `exec.halt.precompile_error`.
+
+## Safe Usage
+- For precompile-dependent features, monitor/classify `exec.halt.precompile_error` separately from retry logic.
+- For precompile-critical dApps, smoke-test the exact path before mainnet rollout.
+
+## Pitfalls
+- Mixing ingress validation responsibility with runtime precompile responsibility
+- Assuming `0x0100 (P256VERIFY)` is always enabled
+- Ignoring backend differences for `0x0a (KZG)` (`c-kzg` / `blst` / `arkworks`)
+
+## Related Page
+- `ethereum-differences.md` (opcode/tx type/finality differences)
+
+## Sources
+- `crates/ic-evm-wrapper/src/lib.rs` (`exec.halt.precompile_error`)
+- `crates/evm-core/src/revm_exec.rs`
+- `crates/evm-core/Cargo.toml` (`revm` feature)
+- `vendor/revm/crates/handler/src/mainnet_builder.rs`
+- `vendor/revm/crates/primitives/src/hardfork.rs`
+- `vendor/revm/crates/precompile/src/lib.rs`
+- `vendor/revm/crates/precompile/src/id.rs`
+- `vendor/revm/crates/precompile/src/bls12_381_const.rs`
+- `vendor/revm/crates/precompile/src/secp256r1.rs`

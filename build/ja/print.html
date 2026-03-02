@@ -1,0 +1,1815 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Kasane Developer Docs</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="Kasane EVM compatibility documentation">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-9e55c539.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-05ecd3d5.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Kasane Developer Docs</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <blockquote>
+<p>English version: /en/doc/introduction.html</p>
+</blockquote>
+<h1 id="what-is-kasane"><a class="header" href="#what-is-kasane">What is Kasane</a></h1>
+<h2 id="tldr"><a class="header" href="#tldr">TL;DR</a></h2>
+<p>Kasane は、ICP canister 上で EVM実行を提供するプロジェクトです。<br>公開導線は「canister Candid API」と「Gateway JSON-RPC」です。<br>JSON-RPCは Ethereum完全互換ではなく、開発用途の制限付き互換です。<br>互換ターゲットは Ethereum JSON-RPC + EVM実行意味論で、OP/Superchain互換は非目標です。</p>
+<h2 id="できること"><a class="header" href="#できること">できること</a></h2>
+<ul>
+<li>Ethereum風 JSON-RPC で基本的な参照/送信を行う</li>
+<li>canister query/update で直接EVM機能を呼ぶ</li>
+<li>indexer で <code>export_blocks</code> を pull し、Postgresへ保持する</li>
+</ul>
+<h2 id="主な制約現行実装"><a class="header" href="#主な制約現行実装">主な制約（現行実装）</a></h2>
+<ul>
+<li>Ethereum JSON-RPC 互換は制限付き（未対応メソッドは互換仕様ページを参照）</li>
+<li>node運用向けワークフローの提供（本書対象外）</li>
+</ul>
+<h2 id="互換の立ち位置"><a class="header" href="#互換の立ち位置">互換の立ち位置</a></h2>
+<ul>
+<li>明示対象: Ethereum JSON-RPC 互換（制限付き）</li>
+<li>非目標: OP-stack / Superchain 互換</li>
+<li>注意: <code>eth_sendRawTransaction</code> の成功は submit成功のみ。実行成功は receipt <code>status=0x1</code> で判定</li>
+</ul>
+<h2 id="読者対象"><a class="header" href="#読者対象">読者対象</a></h2>
+<ul>
+<li>EVM dApp開発者</li>
+<li>スマートコントラクト開発者</li>
+<li>バックエンド統合開発者</li>
+<li>indexer開発者</li>
+</ul>
+<h2 id="根拠"><a class="header" href="#根拠">根拠</a></h2>
+<ul>
+<li><code>README.md</code>（運用サマリ、互換方針）</li>
+<li><code>tools/rpc-gateway/README.md</code>（Gatewayの互換表）</li>
+<li><code>crates/ic-evm-wrapper/evm_canister.did</code>（公開I/F）</li>
+</ul>
+<h2 id="互換仕様の正本"><a class="header" href="#互換仕様の正本">互換仕様の正本</a></h2>
+<ul>
+<li>JSON-RPC互換ポリシーの正本: <code>./rpc/overview.md</code></li>
+<li>メソッド差分の詳細: <code>./compatibility/json-rpc-deviations.md</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/quickstart.html</p>
+</blockquote>
+<h1 id="quickstart-gateway--candid"><a class="header" href="#quickstart-gateway--candid">Quickstart (Gateway + Candid)</a></h1>
+<h2 id="tldr-1"><a class="header" href="#tldr-1">TL;DR</a></h2>
+<ul>
+<li>既定ネットワークは public testnet（<code>chain_id=4801360</code>、RPC: <code>https://rpc-testnet.kasane.network</code>）。</li>
+<li>導線は2つ: Path A（Gateway JSON-RPC）/ Path B（canister Candid直呼び）。</li>
+<li>送信成功判定は submit結果ではなく <code>eth_getTransactionReceipt.status</code>。</li>
+<li><code>tx_id</code> と <code>eth_tx_hash</code> は別物。</li>
+<li>deploy/call は署名済み raw tx を用いた送信手順に統一する。</li>
+</ul>
+<h2 id="できること--できないこと"><a class="header" href="#できること--できないこと">できること / できないこと</a></h2>
+<h3 id="できること-1"><a class="header" href="#できること-1">できること</a></h3>
+<ul>
+<li>接続確認（chain id / block number）</li>
+<li>ネイティブ送金（署名済みraw tx投入）</li>
+<li>receipt監視（成功/失敗判定）</li>
+<li>query系の状態参照（balance/code/storage/call/estimate）</li>
+</ul>
+<h3 id="できないこと現行"><a class="header" href="#できないこと現行">できないこと（現行）</a></h3>
+<ul>
+<li>Ethereum標準の pending/mempool API 前提のフロー（<code>eth_pendingTransactions</code> など）</li>
+<li>（補足）canister直呼びでは <code>get_pending(tx_id)</code> による個別追跡は可能</li>
+<li>WebSocket購読（<code>eth_subscribe</code>）</li>
+<li><code>eth_getLogs</code> の完全互換（filter制約あり）</li>
+</ul>
+<p>互換ポリシー詳細は <code>./rpc/overview.md</code> と <code>./compatibility/json-rpc-deviations.md</code> を参照。</p>
+<hr>
+<h2 id="前提条件"><a class="header" href="#前提条件">前提条件</a></h2>
+<ul>
+<li>公開RPC: <code>https://rpc-testnet.kasane.network</code></li>
+<li>chain id: <code>4801360</code></li>
+<li>canister id（testnet運用値）: <code>4c52m-aiaaa-aaaam-agwwa-cai</code></li>
+<li><code>dfx</code>（canister query/updateを使う場合）</li>
+<li>Gateway経由で送信する場合は署名済み raw tx を用意</li>
+</ul>
+<hr>
+<h2 id="path-a-gateway-json-rpc"><a class="header" href="#path-a-gateway-json-rpc">Path A: Gateway JSON-RPC</a></h2>
+<h3 id="1-接続確認"><a class="header" href="#1-接続確認">1) 接続確認</a></h3>
+<pre><code class="language-bash">RPC_URL="https://rpc-testnet.kasane.network"
+
+curl -s -X POST "$RPC_URL" -H 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","id":1,"method":"eth_chainId","params":[]}'
+
+curl -s -X POST "$RPC_URL" -H 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","id":2,"method":"eth_blockNumber","params":[]}'
+</code></pre>
+<p>期待結果:</p>
+<ul>
+<li><code>eth_chainId</code> が <code>0x4944d0</code>（10進 <code>4801360</code>）</li>
+<li><code>eth_blockNumber</code> が <code>0x...</code> 形式</li>
+</ul>
+<h3 id="2-送金署名済み-raw-tx"><a class="header" href="#2-送金署名済み-raw-tx">2) 送金（署名済み raw tx）</a></h3>
+<pre><code class="language-bash">RAW_TX="0x&lt;signed_raw_tx_hex&gt;"
+
+curl -s -X POST "$RPC_URL" -H 'content-type: application/json' \
+  --data "{\"jsonrpc\":\"2.0\",\"id\":3,\"method\":\"eth_sendRawTransaction\",\"params\":[\"$RAW_TX\"]}"
+</code></pre>
+<p>期待結果:</p>
+<ul>
+<li><code>result</code> に <code>0x...</code> tx hash が返る（Gatewayが <code>tx_id</code> から <code>eth_tx_hash</code> を解決）</li>
+</ul>
+<h3 id="3-receipt監視成功判定"><a class="header" href="#3-receipt監視成功判定">3) receipt監視（成功判定）</a></h3>
+<pre><code class="language-bash">TX_HASH="0x&lt;tx_hash_from_send&gt;"
+
+curl -s -X POST "$RPC_URL" -H 'content-type: application/json' \
+  --data "{\"jsonrpc\":\"2.0\",\"id\":4,\"method\":\"eth_getTransactionReceipt\",\"params\":[\"$TX_HASH\"]}"
+</code></pre>
+<p>判定:</p>
+<ul>
+<li><code>status == 0x1</code>: 実行成功</li>
+<li><code>status == 0x0</code>: 実行失敗（submit成功でも失敗しうる）</li>
+<li><code>result == null</code>: まだ採掘反映前</li>
+</ul>
+<h3 id="代表エラー"><a class="header" href="#代表エラー">代表エラー</a></h3>
+<ul>
+<li><code>-32602 invalid params</code>: 引数形式不正</li>
+<li><code>-32001 resource not found</code>: prune境界または対象なし</li>
+<li><code>-32000 state unavailable</code>: migration/corrupt等の状態</li>
+</ul>
+<h3 id="落とし穴"><a class="header" href="#落とし穴">落とし穴</a></h3>
+<ul>
+<li><code>eth_sendRawTransaction</code> 成功だけで完了扱いにする</li>
+<li><code>tx_id</code> と <code>eth_tx_hash</code> を混同する</li>
+</ul>
+<hr>
+<h2 id="path-b-canister-candid直呼び"><a class="header" href="#path-b-canister-candid直呼び">Path B: canister Candid直呼び</a></h2>
+<h3 id="1-接続確認query"><a class="header" href="#1-接続確認query">1) 接続確認（query）</a></h3>
+<pre><code class="language-bash">CANISTER_ID="4c52m-aiaaa-aaaam-agwwa-cai"
+NETWORK="ic"
+
+dfx canister call --network "$NETWORK" --query "$CANISTER_ID" rpc_eth_chain_id '( )'
+dfx canister call --network "$NETWORK" --query "$CANISTER_ID" rpc_eth_block_number '( )'
+</code></pre>
+<h3 id="2-submit_ic_txicsynthetic"><a class="header" href="#2-submit_ic_txicsynthetic">2) <code>submit_ic_tx</code>（IcSynthetic）</a></h3>
+<p><code>submit_ic_tx</code> は <code>record</code> を受け取る:</p>
+<ul>
+<li><code>to: opt vec nat8</code>（<code>Some</code>時は20 bytes、<code>None</code>はcreate）</li>
+<li><code>value: nat</code></li>
+<li><code>gas_limit: nat64</code></li>
+<li><code>nonce: nat64</code></li>
+<li><code>max_fee_per_gas: nat</code></li>
+<li><code>max_priority_fee_per_gas: nat</code></li>
+<li><code>data: vec nat8</code></li>
+</ul>
+<p><code>IcSynthetic</code> では <code>from</code> をpayloadに含めません。<br>wrapper が <code>msg_caller()</code> と <code>canister_self()</code> を付与して core の <code>TxIn::IcSynthetic</code> に渡し、sender を決定します。</p>
+<pre><code class="language-bash"># 例: to=0x...01 / value=0 / gas_limit=500000 / data=""
+# 注: fee は現行の最小受理条件（min_gas_price/min_priority_fee）以上に設定する。
+TO_BYTES="$(python - &lt;&lt;'PY'
+to = bytes.fromhex('0000000000000000000000000000000000000001')
+print('; '.join(str(b) for b in to))
+PY
+)"
+
+dfx canister call --network "$NETWORK" "$CANISTER_ID" submit_ic_tx "(record {
+  to = opt vec { $TO_BYTES };
+  value = 0 : nat;
+  gas_limit = 500000 : nat64;
+  nonce = 0 : nat64;
+  max_fee_per_gas = 500000000000 : nat;
+  max_priority_fee_per_gas = 250000000000 : nat;
+  data = vec { };
+})"
+</code></pre>
+<h3 id="20-submit_ic_tx-送信手順"><a class="header" href="#20-submit_ic_tx-送信手順">2.0) <code>submit_ic_tx</code> 送信手順</a></h3>
+<p>運用は次の順で固定すると事故を減らせます。</p>
+<ol>
+<li>送信前に chain/network を確認する
+<ul>
+<li><code>rpc_eth_chain_id</code> が <code>4801360</code> であること</li>
+</ul>
+</li>
+<li>送信元nonceを確認する
+<ul>
+<li><code>expected_nonce_by_address(20 bytes)</code> を呼び、現在nonceを取得</li>
+</ul>
+</li>
+<li>fee/gasを決める
+<ul>
+<li><code>rpc_eth_gas_price</code> / <code>rpc_eth_max_priority_fee_per_gas</code> を参照し、下限以上を設定</li>
+</ul>
+</li>
+<li><code>submit_ic_tx(record)</code> を1回送る
+<ul>
+<li>返り値 <code>tx_id</code> を保存</li>
+</ul>
+</li>
+<li>実行結果を追跡する
+<ul>
+<li><code>get_pending(tx_id)</code> で状態確認</li>
+<li><code>get_receipt(tx_id)</code> が取得できたら <code>status</code> で成功/失敗判定</li>
+</ul>
+</li>
+</ol>
+<p>注意:</p>
+<ul>
+<li><code>submit_ic_tx</code> の成功は「受付成功」です。実行成功は <code>receipt.status</code> で判定してください。</li>
+<li><code>tx_id</code> は内部キーであり、<code>eth_tx_hash</code> とは別です。</li>
+</ul>
+<h3 id="21-submit_ic_tx-検証フロー重要"><a class="header" href="#21-submit_ic_tx-検証フロー重要">2.1) <code>submit_ic_tx</code> 検証フロー（重要）</a></h3>
+<ul>
+<li>pre-submit guard
+<ul>
+<li>anonymous拒否（<code>auth.anonymous_forbidden</code>）</li>
+<li>migration/cycle状態で write拒否（<code>ops.write.*</code>）</li>
+</ul>
+</li>
+<li>decode/検証
+<ul>
+<li>payloadサイズ/形式</li>
+<li>sender導出失敗は <code>arg.principal_to_evm_derivation_failed</code></li>
+<li>fee条件不一致は <code>submit.invalid_fee</code></li>
+<li>nonce不一致は <code>submit.nonce_too_low</code> / <code>submit.nonce_gap</code> / <code>submit.nonce_conflict</code></li>
+</ul>
+</li>
+<li>正常時は <code>tx_id</code> を返し、採掘は非同期（<code>auto-production</code>）</li>
+</ul>
+<h3 id="3-nonce取得"><a class="header" href="#3-nonce取得">3) nonce取得</a></h3>
+<pre><code class="language-bash">ADDR_BLOB='"\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00"'
+dfx canister call --network "$NETWORK" --query "$CANISTER_ID" expected_nonce_by_address "(blob $ADDR_BLOB)"
+</code></pre>
+<p>注意:</p>
+<ul>
+<li><code>expected_nonce_by_address</code> は 20 bytes address のみ受理</li>
+<li>32 bytes（bytes32エンコードprincipalの誤投入）には明示エラーを返す</li>
+</ul>
+<h3 id="4-raw-tx投入ethsigned"><a class="header" href="#4-raw-tx投入ethsigned">4) raw tx投入（EthSigned）</a></h3>
+<p>既存ヘルパー <code>eth_raw_tx</code> を使って raw tx bytes を作る:</p>
+<pre><code class="language-bash">CHAIN_ID=4801360
+PRIVKEY="&lt;YOUR_PRIVKEY_HEX&gt;"
+RAW_TX_BYTES=$(cargo run -q -p ic-evm-core --features local-signer-bin --bin eth_raw_tx -- \
+  --mode raw \
+  --privkey "$PRIVKEY" \
+  --to "0000000000000000000000000000000000000001" \
+  --value "0" \
+  --gas-price "500000000000" \
+  --gas-limit "21000" \
+  --nonce "0" \
+  --chain-id "$CHAIN_ID")
+
+dfx canister call --network "$NETWORK" "$CANISTER_ID" rpc_eth_send_raw_transaction "(vec { $RAW_TX_BYTES })"
+</code></pre>
+<h3 id="5-tx_id-追跡icsynthetic"><a class="header" href="#5-tx_id-追跡icsynthetic">5) <code>tx_id</code> 追跡（IcSynthetic）</a></h3>
+<p><code>submit_ic_tx</code> の戻り値は <code>eth_tx_hash</code> ではなく内部キー <code>tx_id</code> です。<br>追跡は以下を使います。</p>
+<ul>
+<li><code>get_pending(tx_id)</code>（Queued/Included/Dropped/Unknown）</li>
+<li><code>get_receipt(tx_id)</code>（実行結果）</li>
+</ul>
+<h3 id="6-eth_sendrawtransaction-の返却注意gateway"><a class="header" href="#6-eth_sendrawtransaction-の返却注意gateway">6) <code>eth_sendRawTransaction</code> の返却注意（Gateway）</a></h3>
+<ul>
+<li>通常は <code>eth_tx_hash</code> が返る。</li>
+<li>ただし内部で <code>tx_id -&gt; eth_tx_hash</code> 解決に失敗した場合、<code>-32000</code>（<code>submit succeeded but eth hash is unavailable</code>）を返す。</li>
+</ul>
+<h3 id="落とし穴-1"><a class="header" href="#落とし穴-1">落とし穴</a></h3>
+<ul>
+<li>queryメソッドを update呼び出しして失敗する</li>
+<li>address 20bytes要件を満たさない（<code>expected_nonce_by_address</code>）</li>
+<li><code>submit_ic_tx</code> の <code>tx_id</code> を <code>eth_tx_hash</code> と混同する</li>
+<li><code>submit_ic_tx</code> 成功だけで実行成功とみなす</li>
+</ul>
+<hr>
+<h2 id="deploy--call運用手順"><a class="header" href="#deploy--call運用手順">Deploy &amp; Call（運用手順）</a></h2>
+<h3 id="前提"><a class="header" href="#前提">前提</a></h3>
+<ul>
+<li>bytecode 生成済みであること（<code>data</code> フィールドに deploy bytecode を設定）</li>
+<li>署名環境（private key / chain id一致）が準備済みであること</li>
+<li>nonce と fee を事前に取得・設定すること</li>
+</ul>
+<h3 id="実行フロー"><a class="header" href="#実行フロー">実行フロー</a></h3>
+<ol>
+<li><code>eth_estimateGas</code> で deploy tx の gas を見積もる。</li>
+<li>deploy用 raw tx を生成し、<code>eth_sendRawTransaction</code> で送信する。</li>
+<li>返却された <code>eth_tx_hash</code> を <code>eth_getTransactionReceipt</code> で追跡する。</li>
+<li><code>receipt.contractAddress</code> にデプロイ先アドレスが入ることを確認する。</li>
+</ol>
+<hr>
+<h2 id="根拠-1"><a class="header" href="#根拠-1">根拠</a></h2>
+<ul>
+<li><code>README.md</code></li>
+<li><code>tools/rpc-gateway/README.md</code></li>
+<li><code>docs/api/rpc_eth_send_raw_transaction_payload.md</code></li>
+<li><code>crates/evm-core/src/test_bin/eth_raw_tx.rs</code></li>
+<li><code>crates/ic-evm-wrapper/evm_canister.did</code></li>
+<li><code>tools/rpc-gateway/src/handlers.ts</code></li>
+<li><code>crates/ic-evm-wrapper/src/lib.rs</code>（<code>submit_ic_tx</code>, <code>expected_nonce_by_address</code>）</li>
+<li><code>crates/evm-core/src/chain.rs</code>（<code>TxIn::IcSynthetic</code>, submit検証）</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/concepts/accounts-keys.html</p>
+</blockquote>
+<h1 id="accounts--keys"><a class="header" href="#accounts--keys">Accounts &amp; Keys</a></h1>
+<h2 id="tldr-2"><a class="header" href="#tldr-2">TL;DR</a></h2>
+<ul>
+<li>senderは <code>EthSigned</code> と <code>IcSynthetic</code> で導出経路が異なる。</li>
+<li><code>expected_nonce_by_address</code> は20 bytes address前提。</li>
+<li><code>IcSynthetic</code> は <code>from</code> をpayloadで受け取らず、caller情報から決定される。</li>
+</ul>
+<h2 id="できること-2"><a class="header" href="#できること-2">できること</a></h2>
+<ul>
+<li>Eth signed txの署名senderを使う</li>
+<li>Principal由来sender（IcSynthetic）を使う</li>
+</ul>
+<h2 id="制約"><a class="header" href="#制約">制約</a></h2>
+<ul>
+<li>bytes32風の値を20 bytes addressとして扱う</li>
+</ul>
+<h2 id="ethsigned-と-icsynthetic-の違い"><a class="header" href="#ethsigned-と-icsynthetic-の違い"><code>EthSigned</code> と <code>IcSynthetic</code> の違い</a></h2>
+<ul>
+<li><code>EthSigned</code>
+<ul>
+<li>署名済みraw txから sender を復元</li>
+<li>chain id検証を伴う</li>
+</ul>
+</li>
+<li><code>IcSynthetic</code>
+<ul>
+<li>wrapperが <code>msg_caller()</code> と <code>canister_self()</code> を付与して <code>TxIn::IcSynthetic</code> として投入</li>
+<li>payloadに <code>from</code> を持たない</li>
+<li>sender導出失敗は <code>AddressDerivationFailed</code> 系エラーになる</li>
+</ul>
+</li>
+</ul>
+<h2 id="icsynthetic-で必ず押さえる点"><a class="header" href="#icsynthetic-で必ず押さえる点"><code>IcSynthetic</code> で必ず押さえる点</a></h2>
+<ul>
+<li><code>submit_ic_tx</code> の入力は Candid <code>record</code>（<code>to/value/gas_limit/nonce/max_fee_per_gas/max_priority_fee_per_gas/data</code>）</li>
+<li>内部保存時の canonical bytes は <code>to_flag(0/1)</code> 形式</li>
+<li>nonce参照は <code>expected_nonce_by_address</code> を使う</li>
+<li>戻り値は <code>eth_tx_hash</code> ではなく <code>tx_id</code></li>
+<li>実行確定は submit時点ではなく、後続blockで receipt 参照して判断する</li>
+</ul>
+<h2 id="安全な使い方"><a class="header" href="#安全な使い方">安全な使い方</a></h2>
+<ol>
+<li>callerに対応する20 bytesアドレスを確定する</li>
+<li><code>expected_nonce_by_address</code> で nonce を取る</li>
+<li><code>submit_ic_tx</code> を送る</li>
+<li><code>get_pending(tx_id)</code> / <code>get_receipt(tx_id)</code> で追跡する</li>
+</ol>
+<p>pending/mempool運用ポリシーの正本は <code>../rpc/overview.md</code> を参照。</p>
+<h2 id="落とし穴-2"><a class="header" href="#落とし穴-2">落とし穴</a></h2>
+<ul>
+<li>Principalエンコード値をそのままaddressとして投入する</li>
+<li><code>expected_nonce_by_address</code> に20 bytes以外を渡す</li>
+<li><code>tx_id</code> を <code>eth_tx_hash</code> と同一視する</li>
+<li>submit成功を実行成功と誤認する</li>
+</ul>
+<h2 id="根拠-2"><a class="header" href="#根拠-2">根拠</a></h2>
+<ul>
+<li><code>crates/ic-evm-wrapper/src/lib.rs</code>（<code>expected_nonce_by_address</code>）</li>
+<li><code>crates/evm-core/src/tx_decode.rs</code>（<code>IcSynthetic</code> / <code>EthSigned</code>）</li>
+<li><code>crates/evm-core/src/chain.rs</code>（<code>TxIn::IcSynthetic</code>）</li>
+<li><code>README.md</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/concepts/transactions-fees.html</p>
+</blockquote>
+<h1 id="transactions--fees"><a class="header" href="#transactions--fees">Transactions &amp; Fees</a></h1>
+<h2 id="tldr-3"><a class="header" href="#tldr-3">TL;DR</a></h2>
+<ul>
+<li>対応tx typeは Legacy/2930/1559、4844/7702は非対応。</li>
+<li>feeは base fee + priority fee モデル（制限付き）。</li>
+</ul>
+<h2 id="手数料モデル"><a class="header" href="#手数料モデル">手数料モデル</a></h2>
+<ul>
+<li><code>compute_next_base_fee</code> で次ブロックbase fee更新</li>
+<li><code>compute_effective_gas_price</code> で実効価格を計算</li>
+</ul>
+<h2 id="落とし穴-3"><a class="header" href="#落とし穴-3">落とし穴</a></h2>
+<ul>
+<li>chain id不一致txを送る</li>
+<li>priority/max feeの整合条件を満たさない</li>
+</ul>
+<h2 id="根拠-3"><a class="header" href="#根拠-3">根拠</a></h2>
+<ul>
+<li><code>crates/evm-core/src/tx_decode.rs</code></li>
+<li><code>crates/evm-core/src/base_fee.rs</code></li>
+<li><code>crates/evm-core/src/revm_exec.rs</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/concepts/blocks-receipts-logs.html</p>
+</blockquote>
+<h1 id="blocks-receipts-logs"><a class="header" href="#blocks-receipts-logs">Blocks, Receipts, Logs</a></h1>
+<h2 id="tldr-4"><a class="header" href="#tldr-4">TL;DR</a></h2>
+<ul>
+<li>block/receipt/log は Candid型として公開される。</li>
+<li>receipt には <code>status</code>, <code>gas_used</code>, <code>effective_gas_price</code>, <code>contract_address</code>, <code>logs</code> を含む。</li>
+</ul>
+<h2 id="ポイント"><a class="header" href="#ポイント">ポイント</a></h2>
+<ul>
+<li><code>logs[].logIndex</code> はブロック内通番</li>
+<li>receipt lookup は <code>Found/NotFound/PossiblyPruned/Pruned</code></li>
+</ul>
+<h2 id="落とし穴-4"><a class="header" href="#落とし穴-4">落とし穴</a></h2>
+<ul>
+<li>pruned履歴を永続参照できる前提で設計する</li>
+<li><code>tx_id</code> と <code>eth_tx_hash</code> の照会経路を混在させる</li>
+</ul>
+<h2 id="根拠-4"><a class="header" href="#根拠-4">根拠</a></h2>
+<ul>
+<li><code>crates/ic-evm-wrapper/evm_canister.did</code></li>
+<li><code>crates/ic-evm-rpc/src/lib.rs</code></li>
+<li><code>tools/rpc-gateway/src/handlers.ts</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/concepts/finality-reorg.html</p>
+</blockquote>
+<h1 id="finality--reorg"><a class="header" href="#finality--reorg">Finality &amp; Reorg</a></h1>
+<h2 id="tldr-5"><a class="header" href="#tldr-5">TL;DR</a></h2>
+<ul>
+<li>本実装は単一ブロックプロデューサ（sequencer）前提で、reorgを前提とする運用モデルは想定しない。</li>
+<li>submitとexecuteは分離されるため、receipt監視が必要。</li>
+</ul>
+<h2 id="見え方"><a class="header" href="#見え方">見え方</a></h2>
+<ul>
+<li><code>eth_sendRawTransaction</code> は投入</li>
+<li>実行確定は後続blockで反映</li>
+</ul>
+<h2 id="注意点"><a class="header" href="#注意点">注意点</a></h2>
+<ul>
+<li>submit成功時点で状態確定したとみなす</li>
+<li>Ethereum L1のfork前提ロジックをそのまま持ち込む</li>
+</ul>
+<h2 id="根拠-5"><a class="header" href="#根拠-5">根拠</a></h2>
+<ul>
+<li><code>README.md</code></li>
+<li><code>tools/rpc-gateway/README.md</code></li>
+<li><code>crates/ic-evm-wrapper/src/lib.rs</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/compatibility/ethereum-differences.html</p>
+</blockquote>
+<h1 id="ethereum-differences"><a class="header" href="#ethereum-differences">Ethereum Differences</a></h1>
+<h2 id="tldr-6"><a class="header" href="#tldr-6">TL;DR</a></h2>
+<ul>
+<li>互換対象は Ethereum JSON-RPC + EVM実行意味論（完全互換ではない）。</li>
+<li>tx type は Legacy/EIP-2930/EIP-1559 を受理、EIP-4844/EIP-7702 は現状未受理。</li>
+<li>opcode は Kasane 独自の追加/改変を行わず、採用中 spec（現状PRAGUE）の範囲に従う。</li>
+<li>pending/mempool 系APIは一部未実装（<code>eth_pendingTransactions</code> など）。</li>
+<li>canister Candid では <code>get_pending(tx_id)</code> による個別追跡を提供する。</li>
+<li>単一ブロックプロデューサ（sequencer）前提で、reorgを前提とする運用モデルは想定しない。</li>
+</ul>
+<p>注: pending/mempoolの運用ポリシーの正本は <code>../rpc/overview.md</code>。</p>
+<h2 id="対応範囲"><a class="header" href="#対応範囲">対応範囲</a></h2>
+<h3 id="できること-3"><a class="header" href="#できること-3">できること</a></h3>
+<ul>
+<li>Eth signed tx の投入・実行・receipt参照</li>
+<li><code>eth_call</code> / <code>eth_estimateGas</code>（制限付き）</li>
+<li>ブロック/tx/receipt/log の参照</li>
+</ul>
+<h3 id="制約がある領域"><a class="header" href="#制約がある領域">制約がある領域</a></h3>
+<ul>
+<li>4844 blob tx / 7702 authorization tx は現状未受理</li>
+<li>mempoolやfilter/WebSocket購読は制限付き（互換差分あり）</li>
+</ul>
+<h2 id="トランザクション互換"><a class="header" href="#トランザクション互換">トランザクション互換</a></h2>
+<ul>
+<li>Supported
+<ul>
+<li>Legacy (RLP)</li>
+<li>EIP-2930 (<code>tx_type=1</code>)</li>
+<li>EIP-1559 (<code>tx_type=2</code>)</li>
+</ul>
+</li>
+<li>現在未受理
+<ul>
+<li>EIP-4844 (<code>type=0x03</code>)</li>
+<li>EIP-7702 (<code>type=0x04</code>)</li>
+</ul>
+</li>
+</ul>
+<h2 id="opcode差分"><a class="header" href="#opcode差分">opcode差分</a></h2>
+<ul>
+<li>Kasane 独自の opcode 追加/挙動改変は行わない。</li>
+<li>実際の有効範囲は <code>revm</code> の採用specに依存し、現行デフォルトは <code>PRAGUE</code>。</li>
+</ul>
+<h2 id="feeモデル差分"><a class="header" href="#feeモデル差分">feeモデル差分</a></h2>
+<ul>
+<li><code>base_fee</code> は保持され、<code>compute_next_base_fee</code> で更新される。</li>
+<li><code>effective_gas_price</code> は <code>max_fee</code>, <code>max_priority_fee</code>, <code>base_fee</code> から計算。</li>
+<li><code>eth_gasPrice</code> は <code>max(base_fee + max(推定priority,min_priority), min_gas_price)</code> を返す。</li>
+</ul>
+<h2 id="finalityreorg差分"><a class="header" href="#finalityreorg差分">finality/reorg差分</a></h2>
+<ul>
+<li>単一ブロックプロデューサ（sequencer）前提</li>
+<li><code>auto-production</code> 後ブロックは final 扱い（reorg前提では扱わない）</li>
+<li><code>latest/pending/safe/finalized</code> の一部は head扱いの制約あり</li>
+</ul>
+<h2 id="代表エラー-1"><a class="header" href="#代表エラー-1">代表エラー</a></h2>
+<ul>
+<li><code>DecodeError::UnsupportedType</code>（4844/7702）</li>
+<li><code>DecodeError::WrongChainId</code></li>
+<li><code>DecodeError::LegacyChainIdMissing</code></li>
+</ul>
+<h2 id="落とし穴-5"><a class="header" href="#落とし穴-5">落とし穴</a></h2>
+<ul>
+<li>Ethereum L1と同じ pending/finalityモデルを前提にする</li>
+<li>4844/7702 tx を送って互換がある前提で実装する</li>
+</ul>
+<h2 id="根拠-6"><a class="header" href="#根拠-6">根拠</a></h2>
+<ul>
+<li><code>crates/evm-core/src/tx_decode.rs</code></li>
+<li><code>crates/evm-core/tests/phase1_eth_decode.rs</code></li>
+<li><code>crates/evm-core/src/base_fee.rs</code></li>
+<li><code>crates/evm-core/src/revm_exec.rs</code></li>
+<li><code>vendor/revm/crates/handler/src/mainnet_builder.rs</code></li>
+<li><code>vendor/revm/crates/primitives/src/hardfork.rs</code></li>
+<li><code>tools/rpc-gateway/README.md</code></li>
+<li><code>README.md</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/compatibility/json-rpc-deviations.html</p>
+</blockquote>
+<h1 id="json-rpc-deviations"><a class="header" href="#json-rpc-deviations">JSON-RPC Deviations</a></h1>
+<h2 id="tldr-7"><a class="header" href="#tldr-7">TL;DR</a></h2>
+<ul>
+<li>実装済みメソッドは限定される。</li>
+<li><code>eth_getLogs</code> は制約が強いが、<code>blockHash</code> は条件付き対応、<code>topics[0]</code> の OR配列は対応済み。</li>
+<li>blockTagはメソッドごとに制約があり、<code>latest</code> 系に加えて <code>earliest/QUANTITY</code> を受理するが historical は多くが非対応。</li>
+<li><code>eth_sendRawTransaction</code> は submit API委譲で、実行成功は receipt で確認する。</li>
+<li><code>eth_feeHistory</code> は対応済み（<code>blockCount</code> は number/QUANTITY/10進文字列を受理）。</li>
+<li><code>eth_gasPrice</code> は <code>base_fee</code> 単体ではなく、受理条件に寄せた推定値を返す。</li>
+</ul>
+<p>適用範囲: 本ページはJSON-RPC差分の詳細。全体ポリシーは <code>../rpc/overview.md</code> を正本とする。</p>
+<h2 id="メソッド別差分要点"><a class="header" href="#メソッド別差分要点">メソッド別差分（要点）</a></h2>
+<ul>
+<li><code>eth_getBalance</code>
+<ul>
+<li><code>latest/pending/safe/finalized/earliest/QUANTITY</code> を受理</li>
+<li>実質 historical は <code>exec.state.unavailable</code> または <code>invalid.block_range.out_of_window</code></li>
+</ul>
+</li>
+<li><code>eth_getTransactionCount</code>
+<ul>
+<li><code>latest/pending/safe/finalized/earliest/QUANTITY</code> を受理</li>
+<li><code>pending</code> は pending nonce</li>
+<li><code>earliest</code> や過去block nonceは非対応（historical nonce未提供）</li>
+</ul>
+</li>
+<li><code>eth_getCode</code>
+<ul>
+<li><code>latest/pending/safe/finalized/earliest/QUANTITY</code> を受理</li>
+<li>実質 historical は <code>exec.state.unavailable</code> または <code>invalid.block_range.out_of_window</code></li>
+</ul>
+</li>
+<li><code>eth_getStorageAt</code>
+<ul>
+<li><code>latest/pending/safe/finalized/earliest/QUANTITY</code> を受理</li>
+<li>slotは QUANTITY/DATA(32 bytes) 受理</li>
+<li>実質 historical は <code>exec.state.unavailable</code> または <code>invalid.block_range.out_of_window</code></li>
+</ul>
+</li>
+<li><code>eth_call</code>, <code>eth_estimateGas</code>
+<ul>
+<li><code>latest/pending/safe/finalized/earliest/QUANTITY</code> を受理</li>
+<li>historical execution は非対応（<code>exec.state.unavailable</code> / <code>invalid.block_range.out_of_window</code>）</li>
+<li>未対応フィールドは <code>-32602</code></li>
+</ul>
+</li>
+<li><code>eth_getLogs</code>
+<ul>
+<li><code>blockHash</code> は条件付き対応（<code>fromBlock/toBlock</code> 併用不可、直近Nブロック走査で解決）</li>
+<li><code>address</code> 単一のみ</li>
+<li><code>topics[0]</code> OR配列は対応（最大16件）</li>
+<li><code>topics[1+]</code> 条件は非対応</li>
+<li>範囲超過は <code>-32005</code></li>
+</ul>
+</li>
+<li><code>eth_feeHistory</code>
+<ul>
+<li><code>blockCount</code> は <code>number</code> / <code>QUANTITY</code> / 10進文字列を受理</li>
+<li><code>blockCount &lt;= 256</code></li>
+<li><code>pending</code> は現状 <code>latest</code> 同義</li>
+</ul>
+</li>
+<li><code>eth_maxPriorityFeePerGas</code>
+<ul>
+<li>観測データ不足時は <code>-32000</code>（<code>state unavailable</code>）</li>
+</ul>
+</li>
+<li><code>eth_gasPrice</code>
+<ul>
+<li><code>max(base_fee + max(推定priority,min_priority), min_gas_price)</code> を返す</li>
+</ul>
+</li>
+</ul>
+<h2 id="未対応メソッド"><a class="header" href="#未対応メソッド">未対応メソッド</a></h2>
+<ul>
+<li><code>eth_getBlockByHash</code></li>
+<li><code>eth_newFilter</code> / <code>eth_getFilterChanges</code> / <code>eth_uninstallFilter</code></li>
+<li><code>eth_subscribe</code> / <code>eth_unsubscribe</code></li>
+<li><code>eth_pendingTransactions</code></li>
+</ul>
+<h2 id="エラー設計"><a class="header" href="#エラー設計">エラー設計</a></h2>
+<ul>
+<li><code>-32602</code>: invalid params</li>
+<li><code>-32000</code>: state unavailable / execution failed</li>
+<li><code>-32001</code>: resource not found（pruned含む）</li>
+<li><code>-32005</code>: limit exceeded（logs）</li>
+<li>（補足）submit内部エラーは <code>-32603</code> が返る経路あり</li>
+</ul>
+<h2 id="落とし穴-6"><a class="header" href="#落とし穴-6">落とし穴</a></h2>
+<ul>
+<li>標準ノード前提の <code>eth_getLogs</code> filter（<code>address[]</code> や <code>topics[1+]</code>）をそのまま投げる</li>
+<li><code>eth_sendRawTransaction</code> だけで成功確定扱いにする</li>
+<li><code>eth_getLogs</code> の <code>blockHash</code> が常に解決できる前提で使う（走査上限あり）</li>
+</ul>
+<h2 id="根拠-7"><a class="header" href="#根拠-7">根拠</a></h2>
+<ul>
+<li><code>tools/rpc-gateway/src/handlers.ts</code></li>
+<li><code>tools/rpc-gateway/README.md</code></li>
+<li><code>crates/ic-evm-rpc/src/lib.rs</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/compatibility/precompiles-system-contracts.html</p>
+</blockquote>
+<h1 id="precompiles--system-contracts"><a class="header" href="#precompiles--system-contracts">Precompiles &amp; System Contracts</a></h1>
+<h2 id="tldr-8"><a class="header" href="#tldr-8">TL;DR</a></h2>
+<ul>
+<li>precompile 失敗は <code>exec.halt.precompile_error</code> として分類される。</li>
+<li>Kasane は <code>revm</code> の mainnet precompile set を利用し、独自のアドレス上書きはしていない。</li>
+<li>現行実装は <code>SpecId::default = PRAGUE</code> のため、OSAKA追加の <code>0x0100 (P256VERIFY)</code> はデフォルトでは有効化されない。</li>
+<li>opcode差分の解説はこのページの責務外（<code>ethereum-differences.md</code> を参照）。</li>
+</ul>
+<h2 id="運用方針"><a class="header" href="#運用方針">運用方針</a></h2>
+<ul>
+<li>precompile失敗の分類は <code>exec.halt.precompile_error</code> を一次判定に使う。</li>
+<li>precompile依存機能は mainnet 投入前に対象パスをスモークして動作を固定化する。</li>
+</ul>
+<h2 id="対応precompile現行デフォルト-prague"><a class="header" href="#対応precompile現行デフォルト-prague">対応precompile（現行デフォルト: PRAGUE）</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Address</th><th>Name</th><th>導入段階</th><th>備考</th></tr>
+</thead>
+<tbody>
+<tr><td><code>0x01</code></td><td><code>ECREC</code></td><td>Homestead</td><td>secp256k1 ecrecover</td></tr>
+<tr><td><code>0x02</code></td><td><code>SHA256</code></td><td>Homestead</td><td></td></tr>
+<tr><td><code>0x03</code></td><td><code>RIPEMD160</code></td><td>Homestead</td><td></td></tr>
+<tr><td><code>0x04</code></td><td><code>ID</code></td><td>Homestead</td><td>identity</td></tr>
+<tr><td><code>0x05</code></td><td><code>MODEXP</code></td><td>Byzantium</td><td>Prague では Berlin gas式が適用</td></tr>
+<tr><td><code>0x06</code></td><td><code>BN254_ADD</code></td><td>Byzantium</td><td>Istanbul 以降はガス更新版</td></tr>
+<tr><td><code>0x07</code></td><td><code>BN254_MUL</code></td><td>Byzantium</td><td>Istanbul 以降はガス更新版</td></tr>
+<tr><td><code>0x08</code></td><td><code>BN254_PAIRING</code></td><td>Byzantium</td><td>Istanbul 以降はガス更新版</td></tr>
+<tr><td><code>0x09</code></td><td><code>BLAKE2F</code></td><td>Istanbul</td><td></td></tr>
+<tr><td><code>0x0a</code></td><td><code>KZG_POINT_EVALUATION</code></td><td>Cancun</td><td>現行ビルドで有効（検証バックエンドは <code>c-kzg</code> / <code>blst</code> / <code>arkworks</code>）</td></tr>
+<tr><td><code>0x0b</code></td><td><code>BLS12_G1ADD</code></td><td>Prague</td><td>EIP-2537</td></tr>
+<tr><td><code>0x0c</code></td><td><code>BLS12_G1MSM</code></td><td>Prague</td><td>EIP-2537</td></tr>
+<tr><td><code>0x0d</code></td><td><code>BLS12_G2ADD</code></td><td>Prague</td><td>EIP-2537</td></tr>
+<tr><td><code>0x0e</code></td><td><code>BLS12_G2MSM</code></td><td>Prague</td><td>EIP-2537</td></tr>
+<tr><td><code>0x0f</code></td><td><code>BLS12_PAIRING_CHECK</code></td><td>Prague</td><td>EIP-2537</td></tr>
+<tr><td><code>0x10</code></td><td><code>BLS12_MAP_FP_TO_G1</code></td><td>Prague</td><td>EIP-2537</td></tr>
+<tr><td><code>0x11</code></td><td><code>BLS12_MAP_FP2_TO_G2</code></td><td>Prague</td><td>EIP-2537</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="osakaで追加されるが現行デフォルトでは未有効"><a class="header" href="#osakaで追加されるが現行デフォルトでは未有効">OSAKAで追加されるが、現行デフォルトでは未有効</a></h3>
+<ul>
+<li><code>0x0100</code> (<code>P256VERIFY</code>, RIP-7212)</li>
+</ul>
+<h2 id="実装上の前提"><a class="header" href="#実装上の前提">実装上の前提</a></h2>
+<ul>
+<li><code>evm-core</code> は <code>Context::mainnet().build_mainnet_with_inspector(...)</code> で <code>revm</code> の mainnet builder をそのまま使う。</li>
+<li>mainnet builder 側で <code>EthPrecompiles::new(spec)</code> を使って precompile set が決まる。</li>
+<li><code>SpecId::default()</code> は <code>PRAGUE</code>。</li>
+</ul>
+<h2 id="観測可能な事実"><a class="header" href="#観測可能な事実">観測可能な事実</a></h2>
+<ul>
+<li>実行系エラー分類に <code>PrecompileError</code> が存在</li>
+<li>wrapper側で <code>exec.halt.precompile_error</code> にマップされる</li>
+</ul>
+<h2 id="安全な使い方-1"><a class="header" href="#安全な使い方-1">安全な使い方</a></h2>
+<ul>
+<li>precompile依存機能では、<code>exec.halt.precompile_error</code> を監視/分類してリトライ判定を分離する</li>
+<li>precompile前提のdAppでは、mainnet投入前に当該pathをスモークする</li>
+</ul>
+<h2 id="落とし穴-7"><a class="header" href="#落とし穴-7">落とし穴</a></h2>
+<ul>
+<li>ingress検証とruntime precompile責務を混同する</li>
+<li><code>0x0100 (P256VERIFY)</code> を常に有効と誤認する</li>
+<li><code>0x0a (KZG)</code> の検証バックエンド差分（<code>c-kzg</code> / <code>blst</code> / <code>arkworks</code>）を考慮しない</li>
+</ul>
+<h2 id="関連ページ"><a class="header" href="#関連ページ">関連ページ</a></h2>
+<ul>
+<li><code>ethereum-differences.md</code>（opcode/tx type/finality差分）</li>
+</ul>
+<h2 id="根拠-8"><a class="header" href="#根拠-8">根拠</a></h2>
+<ul>
+<li><code>crates/ic-evm-wrapper/src/lib.rs</code>（<code>exec.halt.precompile_error</code>）</li>
+<li><code>crates/evm-core/src/revm_exec.rs</code></li>
+<li><code>crates/evm-core/Cargo.toml</code>（<code>revm</code> feature）</li>
+<li><code>vendor/revm/crates/handler/src/mainnet_builder.rs</code></li>
+<li><code>vendor/revm/crates/primitives/src/hardfork.rs</code></li>
+<li><code>vendor/revm/crates/precompile/src/lib.rs</code></li>
+<li><code>vendor/revm/crates/precompile/src/id.rs</code></li>
+<li><code>vendor/revm/crates/precompile/src/bls12_381_const.rs</code></li>
+<li><code>vendor/revm/crates/precompile/src/secp256r1.rs</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/rpc/overview.html</p>
+</blockquote>
+<h1 id="rpc-overview"><a class="header" href="#rpc-overview">RPC Overview</a></h1>
+<h2 id="tldr-9"><a class="header" href="#tldr-9">TL;DR</a></h2>
+<ul>
+<li>Gateway は canister Candid API を JSON-RPC 2.0 に変換する層です。</li>
+<li>互換は制限付きで、未実装メソッドがあります。</li>
+<li>入力不正は主に <code>-32602</code>、状態不整合は <code>-32000/-32001</code>。</li>
+</ul>
+<h2 id="対応範囲-1"><a class="header" href="#対応範囲-1">対応範囲</a></h2>
+<ul>
+<li><code>web3_*</code>, <code>net_*</code>, <code>eth_*</code> の一部</li>
+<li>実装メソッドは <code>handleRpc</code> の switch が正本</li>
+</ul>
+<h2 id="主なユースケースと制約"><a class="header" href="#主なユースケースと制約">主なユースケースと制約</a></h2>
+<ul>
+<li>基本参照、<code>call</code>、<code>estimate</code>、raw tx投入に対応</li>
+<li>filter/ws/pending は互換差分あり（詳細は各ページ参照）</li>
+</ul>
+<h2 id="pendingmempoolポリシー"><a class="header" href="#pendingmempoolポリシー">Pending/Mempoolポリシー</a></h2>
+<ul>
+<li>Ethereum互換APIとしての pending/mempool（例: <code>eth_pendingTransactions</code>, <code>eth_subscribe</code>）は現状未実装。</li>
+<li>ただし canister Candid には <code>get_pending(tx_id)</code> があり、送信済み tx を個別追跡できる。</li>
+<li>送信成功判定は submit戻り値ではなく receipt ベース（<code>status</code>）で行う。</li>
+<li>詳細は以下を参照:
+<ul>
+<li><code>../quickstart.md</code></li>
+<li><code>../compatibility/json-rpc-deviations.md</code></li>
+<li><code>../compatibility/ethereum-differences.md</code></li>
+<li><code>../concepts/accounts-keys.md</code></li>
+<li><code>../_generated/interfaces.md</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="根拠-9"><a class="header" href="#根拠-9">根拠</a></h2>
+<ul>
+<li><code>tools/rpc-gateway/src/handlers.ts</code>（<code>handleRpc</code>）</li>
+<li><code>tools/rpc-gateway/README.md</code></li>
+<li><code>crates/ic-evm-wrapper/src/lib.rs</code>（<code>get_pending</code>）</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/rpc/chain-and-block.html</p>
+</blockquote>
+<h1 id="chain--block-methods"><a class="header" href="#chain--block-methods">Chain &amp; Block Methods</a></h1>
+<h2 id="tldr-10"><a class="header" href="#tldr-10">TL;DR</a></h2>
+<ul>
+<li><code>eth_chainId</code>, <code>net_version</code>, <code>eth_blockNumber</code>, <code>eth_getBlockByNumber</code> を提供。</li>
+<li><code>eth_getBlockByNumber</code> は prune範囲で <code>-32001</code>。</li>
+</ul>
+<h2 id="メソッド"><a class="header" href="#メソッド">メソッド</a></h2>
+<ul>
+<li><code>eth_chainId</code> -&gt; canister <code>rpc_eth_chain_id</code></li>
+<li><code>net_version</code> -&gt; <code>rpc_eth_chain_id</code> を10進文字列化</li>
+<li><code>eth_blockNumber</code> -&gt; canister <code>rpc_eth_block_number</code></li>
+<li><code>eth_getBlockByNumber</code> -&gt; canister <code>rpc_eth_get_block_by_number_with_status</code></li>
+</ul>
+<h2 id="blocktag制約"><a class="header" href="#blocktag制約">blockTag制約</a></h2>
+<ul>
+<li><code>latest/pending/safe/finalized</code> は head扱い</li>
+<li>prune済みは <code>resource not found</code></li>
+</ul>
+<h2 id="根拠-10"><a class="header" href="#根拠-10">根拠</a></h2>
+<ul>
+<li><code>tools/rpc-gateway/src/handlers.ts</code></li>
+<li><code>crates/ic-evm-rpc/src/lib.rs</code></li>
+</ul>
+<p>詳細な制約差分は <code>../compatibility/json-rpc-deviations.md</code> を参照。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/rpc/transactions-and-receipts.html</p>
+</blockquote>
+<h1 id="transaction--receipt-methods"><a class="header" href="#transaction--receipt-methods">Transaction &amp; Receipt Methods</a></h1>
+<h2 id="tldr-11"><a class="header" href="#tldr-11">TL;DR</a></h2>
+<ul>
+<li>tx参照は <code>eth_tx_hash</code> 基準。</li>
+<li>receiptは <code>PossiblyPruned/Pruned</code> を明示的に返しうる。</li>
+</ul>
+<h2 id="メソッド-1"><a class="header" href="#メソッド-1">メソッド</a></h2>
+<ul>
+<li><code>eth_getTransactionByHash</code> -&gt; <code>rpc_eth_get_transaction_by_eth_hash</code></li>
+<li><code>eth_getTransactionReceipt</code> -&gt; <code>rpc_eth_get_transaction_receipt_with_status_by_eth_hash</code></li>
+</ul>
+<h2 id="注意"><a class="header" href="#注意">注意</a></h2>
+<ul>
+<li><code>tx_id</code> は内部キー、外部連携は <code>eth_tx_hash</code> を使う。</li>
+<li>内部運用で tx_id を直接引く場合は <code>rpc_eth_get_transaction_receipt_with_status_by_tx_id</code> を使う。</li>
+<li>migration/corrupt時は <code>state unavailable</code> エラー。</li>
+</ul>
+<h2 id="根拠-11"><a class="header" href="#根拠-11">根拠</a></h2>
+<ul>
+<li><code>tools/rpc-gateway/src/handlers.ts</code></li>
+<li><code>crates/ic-evm-rpc/src/lib.rs</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/rpc/state.html</p>
+</blockquote>
+<h1 id="state-methods"><a class="header" href="#state-methods">State Methods</a></h1>
+<h2 id="tldr-12"><a class="header" href="#tldr-12">TL;DR</a></h2>
+<ul>
+<li><code>eth_getBalance</code>, <code>eth_getTransactionCount</code>, <code>eth_getCode</code>, <code>eth_getStorageAt</code> を提供。</li>
+<li>blockTag は <code>latest/pending/safe/finalized/earliest/QUANTITY</code> を受理するが、historical は多くが制約付き。</li>
+</ul>
+<h2 id="メソッド-2"><a class="header" href="#メソッド-2">メソッド</a></h2>
+<ul>
+<li><code>eth_getBalance</code> -&gt; <code>rpc_eth_get_balance</code></li>
+<li><code>eth_getTransactionCount</code> -&gt; <code>rpc_eth_get_transaction_count_at</code></li>
+<li><code>eth_getCode</code> -&gt; <code>rpc_eth_get_code</code></li>
+<li><code>eth_getStorageAt</code> -&gt; <code>rpc_eth_get_storage_at</code></li>
+</ul>
+<h2 id="主な制約"><a class="header" href="#主な制約">主な制約</a></h2>
+<ul>
+<li>balance/code/storage: <code>QUANTITY==head</code> 以外の historical は <code>state unavailable</code> / out-of-window になり得る</li>
+<li>tx count: <code>pending</code> は pending nonce を返す。<code>earliest</code> / 過去nonce は現状未提供</li>
+</ul>
+<p>詳細は <code>../compatibility/json-rpc-deviations.md</code> と <code>./overview.md</code> を参照。</p>
+<h2 id="根拠-12"><a class="header" href="#根拠-12">根拠</a></h2>
+<ul>
+<li><code>tools/rpc-gateway/src/handlers.ts</code></li>
+<li><code>crates/ic-evm-rpc/src/lib.rs</code></li>
+<li><code>tools/rpc-gateway/README.md</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/rpc/call-estimate-send.html</p>
+</blockquote>
+<h1 id="call-estimate-send"><a class="header" href="#call-estimate-send">Call, Estimate, Send</a></h1>
+<h2 id="tldr-13"><a class="header" href="#tldr-13">TL;DR</a></h2>
+<ul>
+<li><code>eth_call</code> / <code>eth_estimateGas</code> は callObject制約あり。</li>
+<li><code>eth_estimateGas</code> は <code>gas_used</code> ではなく、成功する最小 <code>gas</code> を返す。</li>
+<li><code>eth_sendRawTransaction</code> は canister submit API委譲。</li>
+</ul>
+<h2 id="メソッド-3"><a class="header" href="#メソッド-3">メソッド</a></h2>
+<ul>
+<li><code>eth_call</code> -&gt; <code>rpc_eth_call_object</code></li>
+<li><code>eth_estimateGas</code> -&gt; <code>rpc_eth_estimate_gas_object</code></li>
+<li><code>eth_sendRawTransaction</code> -&gt; <code>rpc_eth_send_raw_transaction</code></li>
+</ul>
+<h2 id="callobject制約"><a class="header" href="#callobject制約">callObject制約</a></h2>
+<ul>
+<li>対応キー: <code>to/from/gas/gasPrice/value/data/nonce/maxFeePerGas/maxPriorityFeePerGas/chainId/type/accessList</code></li>
+<li><code>type=0x0</code> / <code>0x2</code> のみ</li>
+<li>feeパラメータ併用ルールあり</li>
+</ul>
+<h2 id="送信時の運用"><a class="header" href="#送信時の運用">送信時の運用</a></h2>
+<ul>
+<li>submit成功後に receipt <code>status</code> を必ず監視</li>
+</ul>
+<h2 id="根拠-13"><a class="header" href="#根拠-13">根拠</a></h2>
+<ul>
+<li><code>tools/rpc-gateway/README.md</code></li>
+<li><code>tools/rpc-gateway/src/handlers.ts</code></li>
+<li><code>crates/ic-evm-rpc/src/lib.rs</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/rpc/logs.html</p>
+</blockquote>
+<h1 id="logs"><a class="header" href="#logs">Logs</a></h1>
+<h2 id="tldr-14"><a class="header" href="#tldr-14">TL;DR</a></h2>
+<ul>
+<li><code>eth_getLogs</code> は <code>rpc_eth_get_logs_paged</code> ベースの制限付き実装。</li>
+<li>範囲・filter制約を超えると <code>-32005</code>。</li>
+</ul>
+<h2 id="対応パターン"><a class="header" href="#対応パターン">対応パターン</a></h2>
+<ul>
+<li>単一address + <code>topic0</code>中心のログ取得</li>
+<li><code>topics[0]</code> の OR配列（最大16件）</li>
+<li><code>blockHash</code> 指定（<code>fromBlock/toBlock</code> 併用なし、走査上限内）</li>
+</ul>
+<h2 id="制約-1"><a class="header" href="#制約-1">制約</a></h2>
+<ul>
+<li><code>topics[1+]</code> 条件は現状未対応</li>
+<li>複数address同時指定は未対応</li>
+</ul>
+<h2 id="代表エラー-2"><a class="header" href="#代表エラー-2">代表エラー</a></h2>
+<ul>
+<li><code>logs.range_too_large</code></li>
+<li><code>logs.too_many_results</code></li>
+<li><code>UnsupportedFilter</code></li>
+</ul>
+<h2 id="根拠-14"><a class="header" href="#根拠-14">根拠</a></h2>
+<ul>
+<li><code>crates/ic-evm-rpc/src/lib.rs</code>（<code>rpc_eth_get_logs_paged</code>）</li>
+<li><code>tools/rpc-gateway/src/handlers.ts</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/rpc/errors-and-limits.html</p>
+</blockquote>
+<h1 id="errors--limits"><a class="header" href="#errors--limits">Errors &amp; Limits</a></h1>
+<h2 id="tldr-15"><a class="header" href="#tldr-15">TL;DR</a></h2>
+<ul>
+<li>HTTP側制限（body/batch/depth）とRPC側制限（blockTag/filter/range）の二層で制御。</li>
+<li>エラーコードは <code>-32602/-32000/-32001/-32005</code> が中心。</li>
+</ul>
+<h2 id="gateway-http制限"><a class="header" href="#gateway-http制限">Gateway HTTP制限</a></h2>
+<ul>
+<li><code>RPC_GATEWAY_MAX_HTTP_BODY_SIZE</code></li>
+<li><code>RPC_GATEWAY_MAX_BATCH_LEN</code></li>
+<li><code>RPC_GATEWAY_MAX_JSON_DEPTH</code></li>
+</ul>
+<h2 id="rpcエラー"><a class="header" href="#rpcエラー">RPCエラー</a></h2>
+<ul>
+<li><code>-32602 invalid params</code></li>
+<li><code>-32000 state unavailable / execution failed</code></li>
+<li><code>-32001 resource not found</code></li>
+<li><code>-32005 limit exceeded</code></li>
+</ul>
+<h2 id="根拠-15"><a class="header" href="#根拠-15">根拠</a></h2>
+<ul>
+<li><code>tools/rpc-gateway/src/server.ts</code></li>
+<li><code>tools/rpc-gateway/src/handlers.ts</code></li>
+<li><code>tools/rpc-gateway/src/config.ts</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/contracts/solidity-vyper-compatibility.html</p>
+</blockquote>
+<h1 id="solidityvyper-compatibility"><a class="header" href="#solidityvyper-compatibility">Solidity/Vyper Compatibility</a></h1>
+<h2 id="tldr-16"><a class="header" href="#tldr-16">TL;DR</a></h2>
+<ul>
+<li>EVM実行系の基本導線として <code>eth_call</code> / <code>eth_estimateGas</code> / <code>eth_sendRawTransaction</code> を利用できる。</li>
+<li>互換の詳細は Gateway の実装・互換表を正本として扱う。</li>
+</ul>
+<h2 id="利用可能な主要メソッド"><a class="header" href="#利用可能な主要メソッド">利用可能な主要メソッド</a></h2>
+<ul>
+<li><code>eth_call</code></li>
+<li><code>eth_estimateGas</code></li>
+<li><code>eth_sendRawTransaction</code></li>
+</ul>
+<h2 id="参照先"><a class="header" href="#参照先">参照先</a></h2>
+<ul>
+<li><code>tools/rpc-gateway/README.md</code></li>
+<li><code>crates/evm-core/src/tx_decode.rs</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/contracts/tooling.html</p>
+</blockquote>
+<h1 id="tooling-hardhatfoundryethersviem"><a class="header" href="#tooling-hardhatfoundryethersviem">Tooling (Hardhat/Foundry/ethers/viem)</a></h1>
+<h2 id="tldr-17"><a class="header" href="#tldr-17">TL;DR</a></h2>
+<ul>
+<li>ethers/viem/foundry のスモークがリポジトリ内にある。</li>
+<li>まず read系 + call/estimate + receipt監視を最小セットにする。</li>
+</ul>
+<h2 id="手順最小"><a class="header" href="#手順最小">手順（最小）</a></h2>
+<ul>
+<li>viem: <code>tools/rpc-gateway/smoke/viem_smoke.ts</code></li>
+<li>ethers: <code>tools/rpc-gateway/smoke/ethers_smoke.ts</code></li>
+<li>foundry: <code>tools/rpc-gateway/smoke/foundry_smoke.sh</code></li>
+</ul>
+<h2 id="落とし穴-8"><a class="header" href="#落とし穴-8">落とし穴</a></h2>
+<ul>
+<li>revert dataを捨てて原因調査不能になる</li>
+<li>tx hash保存なしで監視不能になる</li>
+</ul>
+<h2 id="根拠-16"><a class="header" href="#根拠-16">根拠</a></h2>
+<ul>
+<li><code>tools/rpc-gateway/smoke/viem_smoke.ts</code></li>
+<li><code>tools/rpc-gateway/smoke/ethers_smoke.ts</code></li>
+<li><code>tools/rpc-gateway/smoke/foundry_smoke.sh</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/contracts/verification.html</p>
+</blockquote>
+<h1 id="verification"><a class="header" href="#verification">Verification</a></h1>
+<h2 id="tldr-18"><a class="header" href="#tldr-18">TL;DR</a></h2>
+<ul>
+<li>Verify 機能は Explorer 側で提供される。</li>
+<li>事前チェック・鍵ローテーション・監視運用は <code>docs/ops/verify_runbook.md</code> を正本として運用する。</li>
+</ul>
+<h2 id="運用手順概要"><a class="header" href="#運用手順概要">運用手順（概要）</a></h2>
+<ol>
+<li><code>EXPLORER_VERIFY_ENABLED=1</code> と許可コンパイラの環境変数を設定する。</li>
+<li><code>tools/explorer</code> で <code>npm run verify:preflight</code> を実行し、許可バージョンの <code>solc</code> 可用性を確認する。</li>
+<li><code>POST /api/verify/submit</code> で検証ジョブを投入し、<code>GET /api/verify/status</code> で状態を確認する。</li>
+</ol>
+<h2 id="根拠-17"><a class="header" href="#根拠-17">根拠</a></h2>
+<ul>
+<li><code>tools/explorer/README.md</code></li>
+<li><code>docs/ops/verify_runbook.md</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/integration/sdks.html</p>
+</blockquote>
+<h1 id="sdks"><a class="header" href="#sdks">SDKs</a></h1>
+<h2 id="tldr-19"><a class="header" href="#tldr-19">TL;DR</a></h2>
+<ul>
+<li>専用SDKより、JSON-RPCクライアント（ethers/viem/foundry）利用が主。</li>
+<li>canister直呼びは Candid 経由で可能。</li>
+</ul>
+<h2 id="根拠-18"><a class="header" href="#根拠-18">根拠</a></h2>
+<ul>
+<li><code>tools/rpc-gateway/package.json</code></li>
+<li><code>crates/ic-evm-wrapper/evm_canister.did</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/integration/signing-nonce-retries.html</p>
+</blockquote>
+<h1 id="signing-nonce-retries"><a class="header" href="#signing-nonce-retries">Signing, Nonce, Retries</a></h1>
+<h2 id="tldr-20"><a class="header" href="#tldr-20">TL;DR</a></h2>
+<ul>
+<li>nonceは送信前に必ず取得する。</li>
+<li>chain idは <code>4801360</code> を一致させる。</li>
+<li>submit成功後は receipt poll で結果判定する。</li>
+</ul>
+<h2 id="推奨手順"><a class="header" href="#推奨手順">推奨手順</a></h2>
+<ol>
+<li>sender addressを確定</li>
+<li><code>eth_getTransactionCount</code> または <code>expected_nonce_by_address</code></li>
+<li>fee設定（base fee + priorityを考慮）</li>
+<li><code>eth_sendRawTransaction</code></li>
+<li><code>eth_getTransactionReceipt</code> をpoll</li>
+</ol>
+<h2 id="落とし穴-9"><a class="header" href="#落とし穴-9">落とし穴</a></h2>
+<ul>
+<li>nonce固定値ハードコード</li>
+<li>receipt timeout時に再送して nonce競合</li>
+</ul>
+<h2 id="根拠-19"><a class="header" href="#根拠-19">根拠</a></h2>
+<ul>
+<li><code>README.md</code></li>
+<li><code>tools/rpc-gateway/README.md</code></li>
+<li><code>crates/ic-evm-wrapper/src/lib.rs</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/integration/indexer-integration-points.html</p>
+</blockquote>
+<h1 id="indexer-integration-points"><a class="header" href="#indexer-integration-points">Indexer Integration Points</a></h1>
+<h2 id="tldr-21"><a class="header" href="#tldr-21">TL;DR</a></h2>
+<ul>
+<li>pull起点は <code>export_blocks(cursor,max_bytes)</code>。</li>
+<li>logs補助取得は <code>rpc_eth_get_logs_paged</code>。</li>
+<li>prune前提で cursor運用を設計する。</li>
+</ul>
+<h2 id="根拠-20"><a class="header" href="#根拠-20">根拠</a></h2>
+<ul>
+<li><code>crates/ic-evm-wrapper/evm_canister.did</code></li>
+<li><code>tools/indexer/README.md</code></li>
+<li><code>docs/specs/indexer-v1.md</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/indexer/data-model.html</p>
+</blockquote>
+<h1 id="data-model"><a class="header" href="#data-model">Data Model</a></h1>
+<h2 id="tldr-22"><a class="header" href="#tldr-22">TL;DR</a></h2>
+<ul>
+<li>indexerは Postgres-first。</li>
+<li><code>txs</code>, <code>receipts</code>, <code>token_transfers</code>, <code>ops_metrics_samples</code> などを保持。</li>
+</ul>
+<h2 id="主要ポイント"><a class="header" href="#主要ポイント">主要ポイント</a></h2>
+<ul>
+<li><code>receipt_status</code> を <code>txs</code> に保持</li>
+<li>token transfer は receipt logsから抽出</li>
+</ul>
+<h2 id="根拠-21"><a class="header" href="#根拠-21">根拠</a></h2>
+<ul>
+<li><code>tools/indexer/README.md</code></li>
+<li><code>tools/indexer/src/db.ts</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/indexer/resync-pagination-missing-data.html</p>
+</blockquote>
+<h1 id="resync-pagination-missing-data"><a class="header" href="#resync-pagination-missing-data">Resync, Pagination, Missing Data</a></h1>
+<h2 id="tldr-23"><a class="header" href="#tldr-23">TL;DR</a></h2>
+<ul>
+<li>cursorは <code>block_number/segment/byte_offset</code> のJSON固定。</li>
+<li><code>Err.Pruned</code> 返却時は cursorを補正して継続する設計。</li>
+</ul>
+<h2 id="落とし穴-10"><a class="header" href="#落とし穴-10">落とし穴</a></h2>
+<ul>
+<li>indexer停止中にprune進行して履歴欠落</li>
+<li>segment上限不一致で復旧不能</li>
+</ul>
+<h2 id="根拠-22"><a class="header" href="#根拠-22">根拠</a></h2>
+<ul>
+<li><code>tools/indexer/README.md</code></li>
+<li><code>docs/specs/indexer-v1.md</code></li>
+<li><code>tools/indexer/src/config.ts</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/indexer/event-decoding-tips.html</p>
+</blockquote>
+<h1 id="event-decoding-tips"><a class="header" href="#event-decoding-tips">Event Decoding Tips</a></h1>
+<h2 id="tldr-24"><a class="header" href="#tldr-24">TL;DR</a></h2>
+<ul>
+<li>ERC-20 Transfer抽出は topic/data長チェックを厳格に行う。</li>
+<li>不正ログは行単位スキップし、全体停止を避ける設計。</li>
+</ul>
+<h2 id="根拠-23"><a class="header" href="#根拠-23">根拠</a></h2>
+<ul>
+<li><code>tools/indexer/README.md</code></li>
+<li><code>tools/indexer/src/decode_receipt.ts</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/security.html</p>
+</blockquote>
+<h1 id="security-guide"><a class="header" href="#security-guide">Security Guide</a></h1>
+<h2 id="tldr-25"><a class="header" href="#tldr-25">TL;DR</a></h2>
+<ul>
+<li>署名鍵管理、chain id一致、receipt監視が最低ライン。</li>
+<li>低fee設定・nonce運用ミス・prune未考慮が典型的事故要因。</li>
+</ul>
+<h2 id="安全な使い方-2"><a class="header" href="#安全な使い方-2">安全な使い方</a></h2>
+<ul>
+<li>chain id固定（<code>4801360</code>）</li>
+<li>nonceは毎回取得</li>
+<li><code>eth_sendRawTransaction</code> 後に receipt判定</li>
+<li>gateway制限値を過剰緩和しない</li>
+</ul>
+<h2 id="危険な落とし穴"><a class="header" href="#危険な落とし穴">危険な落とし穴</a></h2>
+<ul>
+<li><code>status=0x0</code> を見落として成功扱い</li>
+<li>誤chain idで署名したtxを再送し続ける</li>
+<li>prune後参照を永続前提にする</li>
+</ul>
+<h2 id="推奨設定"><a class="header" href="#推奨設定">推奨設定</a></h2>
+<ul>
+<li><code>RPC_GATEWAY_MAX_BATCH_LEN</code> を既定範囲で維持</li>
+<li><code>INDEXER_CHAIN_ID</code> を実ネットワークと一致</li>
+<li><code>INDEXER_MAX_SEGMENT</code> を canister仕様と一致</li>
+</ul>
+<h2 id="根拠-24"><a class="header" href="#根拠-24">根拠</a></h2>
+<ul>
+<li><code>tools/rpc-gateway/src/config.ts</code></li>
+<li><code>tools/indexer/src/config.ts</code></li>
+<li><code>tools/rpc-gateway/README.md</code></li>
+<li><code>crates/evm-core/tests/phase1_eth_decode.rs</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/troubleshooting.html</p>
+</blockquote>
+<h1 id="troubleshooting-guide"><a class="header" href="#troubleshooting-guide">Troubleshooting Guide</a></h1>
+<h2 id="tldr-26"><a class="header" href="#tldr-26">TL;DR</a></h2>
+<ul>
+<li>まず「入力不正」「state unavailable」「pruned」のどれかを切り分ける。</li>
+<li>submitとexecuteを分けて観測する。</li>
+</ul>
+<h2 id="代表エラーと対処"><a class="header" href="#代表エラーと対処">代表エラーと対処</a></h2>
+<ul>
+<li><code>invalid params (-32602)</code>
+<ul>
+<li>原因: address/hash長不正、blockTag不正、callObject制約違反</li>
+<li>対処: 引数hex長・対応キーを再確認</li>
+</ul>
+</li>
+<li><code>state unavailable (-32000)</code>
+<ul>
+<li>原因: migration中、critical_corrupt、実行失敗</li>
+<li>対処: <code>get_ops_status</code> を確認</li>
+</ul>
+</li>
+<li><code>resource not found (-32001)</code>
+<ul>
+<li>原因: pruned範囲、対象なし</li>
+<li>対処: indexer側履歴を参照</li>
+</ul>
+</li>
+<li><code>limit exceeded (-32005)</code>
+<ul>
+<li>原因: logs範囲過大/件数過多</li>
+<li>対処: ブロック範囲分割</li>
+</ul>
+</li>
+</ul>
+<h2 id="落とし穴-11"><a class="header" href="#落とし穴-11">落とし穴</a></h2>
+<ul>
+<li><code>eth_getLogs</code> を大範囲一発で引く</li>
+<li>監視なしで再送して nonce競合を増やす</li>
+</ul>
+<h2 id="根拠-25"><a class="header" href="#根拠-25">根拠</a></h2>
+<ul>
+<li><code>tools/rpc-gateway/src/handlers.ts</code></li>
+<li><code>tools/rpc-gateway/README.md</code></li>
+<li><code>crates/ic-evm-wrapper/src/lib.rs</code>（<code>get_ops_status</code>）</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/appendix/glossary.html</p>
+</blockquote>
+<h1 id="glossary"><a class="header" href="#glossary">Glossary</a></h1>
+<ul>
+<li><code>tx_id</code>: canister内部識別子</li>
+<li><code>eth_tx_hash</code>: Ethereum互換hash</li>
+<li><code>IcSynthetic</code>: canister独自tx種別</li>
+<li><code>EthSigned</code>: 署名済みEthereum tx</li>
+<li><code>auto-production</code>: timer駆動の自動ブロック生成</li>
+<li><code>PossiblyPruned</code>: prune境界で存在判定が曖昧な状態</li>
+<li><code>Pruned</code>: prune済みで参照不可</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/appendix/config-reference.html</p>
+</blockquote>
+<h1 id="config-reference-user-scope"><a class="header" href="#config-reference-user-scope">Config Reference (User Scope)</a></h1>
+<h2 id="tldr-27"><a class="header" href="#tldr-27">TL;DR</a></h2>
+<ul>
+<li>開発者がよく触る設定だけを抜粋。</li>
+</ul>
+<h2 id="gateway"><a class="header" href="#gateway">Gateway</a></h2>
+<ul>
+<li><code>EVM_CANISTER_ID</code>（必須）</li>
+<li><code>RPC_GATEWAY_IC_HOST</code></li>
+<li><code>RPC_GATEWAY_PORT</code></li>
+</ul>
+<h2 id="indexer"><a class="header" href="#indexer">Indexer</a></h2>
+<ul>
+<li><code>EVM_CANISTER_ID</code>（必須）</li>
+<li><code>INDEXER_DATABASE_URL</code>（必須）</li>
+<li><code>INDEXER_IC_HOST</code></li>
+<li><code>INDEXER_CHAIN_ID</code>（既定 <code>4801360</code>）</li>
+<li><code>INDEXER_MAX_BYTES</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/appendix/versioning-compatibility-policy.html</p>
+</blockquote>
+<h1 id="versioning--compatibility-policy"><a class="header" href="#versioning--compatibility-policy">Versioning &amp; Compatibility Policy</a></h1>
+<h2 id="tldr-28"><a class="header" href="#tldr-28">TL;DR</a></h2>
+<ul>
+<li>互換表の更新正本は Gateway README。</li>
+<li>メソッド追加・制約変更時は同一PRで要約更新する運用。</li>
+</ul>
+<h2 id="根拠-26"><a class="header" href="#根拠-26">根拠</a></h2>
+<ul>
+<li><code>tools/rpc-gateway/README.md</code></li>
+<li><code>README.md</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/_generated/repo-map.html</p>
+</blockquote>
+<h1 id="repo-map"><a class="header" href="#repo-map">Repo Map</a></h1>
+<p>このページは、Kasane リポジトリの「どこに何があるか」を一次情報だけで整理したものです。</p>
+<h2 id="tldr-29"><a class="header" href="#tldr-29">TL;DR</a></h2>
+<ul>
+<li>EVM canister本体は Rust workspace の <code>ic-evm-wrapper</code>。</li>
+<li>実行ロジックは <code>evm-core</code>、永続化/定数は <code>evm-db</code>、RPC補助は <code>ic-evm-rpc</code>。</li>
+<li>外部開発者向け入口は <code>tools/rpc-gateway</code>（HTTP JSON-RPC）と <code>crates/ic-evm-wrapper/evm_canister.did</code>（Candid）。</li>
+<li>indexer は <code>tools/indexer</code>（Postgres-first）。</li>
+</ul>
+<h2 id="主要ディレクトリ"><a class="header" href="#主要ディレクトリ">主要ディレクトリ</a></h2>
+<ul>
+<li><code>crates/ic-evm-wrapper</code>
+<ul>
+<li>canisterエントリポイント（<code>#[ic_cdk::query]</code> / <code>#[ic_cdk::update]</code>）</li>
+<li>Candid公開定義（<code>evm_canister.did</code>）</li>
+</ul>
+</li>
+<li><code>crates/evm-core</code>
+<ul>
+<li>tx decode / submit / produce / call / estimate 実装</li>
+<li>EVM実行とfee計算（<code>revm_exec.rs</code>, <code>base_fee.rs</code>）</li>
+</ul>
+</li>
+<li><code>crates/evm-db</code>
+<ul>
+<li>stable state、chain constants、runtime defaults、receipt/block/tx型</li>
+</ul>
+</li>
+<li><code>crates/ic-evm-rpc</code>
+<ul>
+<li>wrapperから呼ばれる RPC補助ロジック（eth系参照/変換）</li>
+</ul>
+</li>
+<li><code>tools/rpc-gateway</code>
+<ul>
+<li>canister Candid API を Ethereum JSON-RPC 2.0 へ変換</li>
+</ul>
+</li>
+<li><code>tools/indexer</code>
+<ul>
+<li>export API を pull して Postgresへ保存</li>
+</ul>
+</li>
+<li><code>scripts</code>
+<ul>
+<li>smoke / predeploy / mainnet deploy 補助</li>
+</ul>
+</li>
+<li><code>docs</code>
+<ul>
+<li>運用runbook・仕様メモ（一次情報として参照可能）</li>
+</ul>
+</li>
+</ul>
+<h2 id="エントリポイント"><a class="header" href="#エントリポイント">エントリポイント</a></h2>
+<ul>
+<li>canister build/runtime
+<ul>
+<li><code>dfx.json</code> の <code>canisters.evm_canister</code></li>
+<li><code>crates/ic-evm-wrapper/src/lib.rs</code></li>
+</ul>
+</li>
+<li>gateway runtime
+<ul>
+<li><code>tools/rpc-gateway/src/main.ts</code></li>
+<li><code>tools/rpc-gateway/src/server.ts</code></li>
+</ul>
+</li>
+<li>indexer runtime
+<ul>
+<li><code>tools/indexer/src/main.ts</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="依存関係の大枠"><a class="header" href="#依存関係の大枠">依存関係の大枠</a></h2>
+<ul>
+<li>Rust workspace members
+<ul>
+<li><code>Cargo.toml</code> <code>[workspace].members</code></li>
+</ul>
+</li>
+<li>JSON-RPC層の実装責務
+<ul>
+<li>Gateway: request/responseと制限</li>
+<li>canister: state/実行/永続化</li>
+</ul>
+</li>
+</ul>
+<h2 id="非対象本gitbookで扱わない"><a class="header" href="#非対象本gitbookで扱わない">非対象（本GitBookで扱わない）</a></h2>
+<ul>
+<li>ノード運営（validator/sequencer/full node運用手順）</li>
+<li><code>vendor/</code> 配下の上流ライブラリ内部詳細</li>
+</ul>
+<h2 id="根拠-27"><a class="header" href="#根拠-27">根拠</a></h2>
+<ul>
+<li><code>Cargo.toml</code>（workspace members）</li>
+<li><code>dfx.json</code>（canister package/candid）</li>
+<li><code>icp.yaml</code>（deploy recipe）</li>
+<li><code>crates/ic-evm-wrapper/src/lib.rs</code>（canister entrypoint）</li>
+<li><code>tools/rpc-gateway/src/main.ts</code>（gateway entrypoint）</li>
+<li><code>tools/indexer/README.md</code>（indexer責務）</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/_generated/interfaces.html</p>
+</blockquote>
+<h1 id="interfaces"><a class="header" href="#interfaces">Interfaces</a></h1>
+<h2 id="tldr-30"><a class="header" href="#tldr-30">TL;DR</a></h2>
+<ul>
+<li>外部I/Fは <code>Candid</code>（canister直呼び）と <code>HTTP JSON-RPC</code>（gateway）の2系統。</li>
+<li>JSON-RPCは Ethereum完全互換ではなく、制限付き実装。</li>
+<li><code>eth_sendRawTransaction</code> は submit成功≠実行成功。<code>eth_getTransactionReceipt.status</code> を成功条件にする。</li>
+<li>pending/mempool は Ethereum互換APIとしては未対応。送信済み tx の追跡は canister <code>get_pending(tx_id)</code> を使う。</li>
+</ul>
+<h2 id="1-candid-api公開service"><a class="header" href="#1-candid-api公開service">1. Candid API（公開service）</a></h2>
+<p>公開定義: <code>crates/ic-evm-wrapper/evm_canister.did</code></p>
+<h3 id="主要query"><a class="header" href="#主要query">主要query</a></h3>
+<ul>
+<li><code>rpc_eth_chain_id</code></li>
+<li><code>rpc_eth_block_number</code></li>
+<li><code>rpc_eth_get_block_by_number</code></li>
+<li><code>rpc_eth_get_block_by_number_with_status</code></li>
+<li><code>rpc_eth_get_transaction_by_eth_hash</code></li>
+<li><code>rpc_eth_get_transaction_by_tx_id</code></li>
+<li><code>rpc_eth_get_transaction_receipt_by_eth_hash</code></li>
+<li><code>rpc_eth_get_transaction_receipt_with_status_by_eth_hash</code></li>
+<li><code>rpc_eth_get_transaction_receipt_with_status_by_tx_id</code></li>
+<li><code>rpc_eth_get_balance</code></li>
+<li><code>rpc_eth_get_code</code></li>
+<li><code>rpc_eth_get_storage_at</code></li>
+<li><code>rpc_eth_call_object</code></li>
+<li><code>rpc_eth_call_rawtx</code></li>
+<li><code>rpc_eth_estimate_gas_object</code></li>
+<li><code>rpc_eth_get_logs_paged</code></li>
+<li><code>rpc_eth_get_block_number_by_hash</code></li>
+<li><code>rpc_eth_gas_price</code></li>
+<li><code>rpc_eth_max_priority_fee_per_gas</code></li>
+<li><code>rpc_eth_fee_history</code></li>
+<li><code>expected_nonce_by_address</code></li>
+<li><code>get_receipt</code></li>
+<li><code>get_pending</code></li>
+<li><code>export_blocks</code></li>
+<li><code>get_ops_status</code></li>
+<li><code>health</code></li>
+<li><code>metrics</code></li>
+</ul>
+<h3 id="主要update"><a class="header" href="#主要update">主要update</a></h3>
+<ul>
+<li><code>rpc_eth_send_raw_transaction</code></li>
+<li><code>submit_ic_tx</code></li>
+<li><code>set_block_gas_limit</code></li>
+<li><code>set_instruction_soft_limit</code></li>
+<li><code>set_prune_policy</code></li>
+<li><code>set_pruning_enabled</code></li>
+<li><code>set_log_filter</code></li>
+<li><code>prune_blocks</code></li>
+</ul>
+<h2 id="2-gateway-json-rpc"><a class="header" href="#2-gateway-json-rpc">2. Gateway JSON-RPC</a></h2>
+<p>実装: <code>tools/rpc-gateway/src/handlers.ts</code> の <code>handleRpc</code> switch</p>
+<h3 id="実装済みメソッド"><a class="header" href="#実装済みメソッド">実装済みメソッド</a></h3>
+<ul>
+<li><code>web3_clientVersion</code></li>
+<li><code>net_version</code></li>
+<li><code>eth_chainId</code></li>
+<li><code>eth_blockNumber</code></li>
+<li><code>eth_gasPrice</code></li>
+<li><code>eth_maxPriorityFeePerGas</code></li>
+<li><code>eth_feeHistory</code></li>
+<li><code>eth_syncing</code></li>
+<li><code>eth_getBlockByNumber</code></li>
+<li><code>eth_getTransactionByHash</code></li>
+<li><code>eth_getTransactionReceipt</code></li>
+<li><code>eth_getBalance</code></li>
+<li><code>eth_getTransactionCount</code></li>
+<li><code>eth_getCode</code></li>
+<li><code>eth_getStorageAt</code></li>
+<li><code>eth_getLogs</code></li>
+<li><code>eth_call</code></li>
+<li><code>eth_estimateGas</code></li>
+<li><code>eth_sendRawTransaction</code></li>
+</ul>
+<h3 id="未対応readmeの互換表"><a class="header" href="#未対応readmeの互換表">未対応（READMEの互換表）</a></h3>
+<ul>
+<li><code>eth_getBlockByHash</code></li>
+<li><code>eth_getTransactionByBlockHashAndIndex</code></li>
+<li><code>eth_getTransactionByBlockNumberAndIndex</code></li>
+<li><code>eth_getBlockTransactionCountByHash</code></li>
+<li><code>eth_getBlockTransactionCountByNumber</code></li>
+<li><code>eth_newFilter</code></li>
+<li><code>eth_getFilterChanges</code></li>
+<li><code>eth_uninstallFilter</code></li>
+<li><code>eth_subscribe</code></li>
+<li><code>eth_unsubscribe</code></li>
+<li><code>eth_pendingTransactions</code></li>
+</ul>
+<h2 id="3-制約の正本"><a class="header" href="#3-制約の正本">3. 制約の正本</a></h2>
+<ul>
+<li>全体ポリシーの正本: <code>../rpc/overview.md</code></li>
+<li>JSON-RPC差分の正本: <code>../compatibility/json-rpc-deviations.md</code></li>
+<li>pending/mempool運用の正本: <code>../rpc/overview.md</code> の「Pending/Mempoolポリシー」</li>
+</ul>
+<p>本ページは「インターフェース一覧」の要約に限定し、詳細な挙動差分は上記正本に集約する。</p>
+<h2 id="4-返却識別子の注意"><a class="header" href="#4-返却識別子の注意">4. 返却・識別子の注意</a></h2>
+<ul>
+<li>canister内部識別子: <code>tx_id</code></li>
+<li>Ethereum互換識別子: <code>eth_tx_hash</code></li>
+<li>Gateway <code>eth_sendRawTransaction</code> は canister戻り <code>tx_id</code> から <code>eth_tx_hash</code> を解決して返す。</li>
+</ul>
+<h2 id="5-型境界代表"><a class="header" href="#5-型境界代表">5. 型境界（代表）</a></h2>
+<ul>
+<li><code>RpcCallObjectView</code>（Candid）</li>
+<li><code>EthBlockView</code> / <code>EthTxView</code> / <code>EthReceiptView</code></li>
+<li><code>RpcBlockLookupView</code>（<code>NotFound</code> / <code>Found</code> / <code>Pruned</code>）</li>
+<li><code>RpcReceiptLookupView</code>（<code>NotFound</code> / <code>Found</code> / <code>PossiblyPruned</code> / <code>Pruned</code>）</li>
+<li><code>PendingStatusView</code>（<code>Queued</code> / <code>Included</code> / <code>Dropped</code> / <code>Unknown</code>）</li>
+</ul>
+<h2 id="根拠-28"><a class="header" href="#根拠-28">根拠</a></h2>
+<ul>
+<li><code>crates/ic-evm-wrapper/evm_canister.did</code></li>
+<li><code>tools/rpc-gateway/src/handlers.ts</code></li>
+<li><code>tools/rpc-gateway/README.md</code></li>
+<li><code>crates/ic-evm-wrapper/src/lib.rs</code>（<code>get_pending</code>, <code>rpc_eth_send_raw_transaction</code>）</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/_generated/config-reference.html</p>
+</blockquote>
+<h1 id="config-reference"><a class="header" href="#config-reference">Config Reference</a></h1>
+<h2 id="tldr-31"><a class="header" href="#tldr-31">TL;DR</a></h2>
+<ul>
+<li>必須設定は Gateway: <code>EVM_CANISTER_ID</code>、Indexer: <code>EVM_CANISTER_ID</code> + <code>INDEXER_DATABASE_URL</code>。</li>
+<li>既定の <code>chain_id</code> は <code>4801360</code>。</li>
+<li>ガス/採掘/prune の既定値は Rust定数で管理される。</li>
+</ul>
+<h2 id="1-gateway環境変数"><a class="header" href="#1-gateway環境変数">1. Gateway環境変数</a></h2>
+<p>定義: <code>tools/rpc-gateway/src/config.ts</code></p>
+<ul>
+<li>必須
+<ul>
+<li><code>EVM_CANISTER_ID</code></li>
+</ul>
+</li>
+<li>任意（既定値）
+<ul>
+<li><code>RPC_GATEWAY_IC_HOST</code>（<code>https://icp-api.io</code>）</li>
+<li><code>RPC_GATEWAY_FETCH_ROOT_KEY</code>（<code>false</code>）</li>
+<li><code>RPC_GATEWAY_IDENTITY_PEM_PATH</code>（<code>null</code>）</li>
+<li><code>RPC_GATEWAY_HOST</code>（<code>127.0.0.1</code>）</li>
+<li><code>RPC_GATEWAY_PORT</code>（<code>8545</code>）</li>
+<li><code>RPC_GATEWAY_CLIENT_VERSION</code>（<code>kasane/phase2-gateway/v0.1.0</code>）</li>
+<li><code>RPC_GATEWAY_MAX_HTTP_BODY_SIZE</code>（<code>262144</code>）</li>
+<li><code>RPC_GATEWAY_MAX_BATCH_LEN</code>（<code>20</code>）</li>
+<li><code>RPC_GATEWAY_MAX_JSON_DEPTH</code>（<code>20</code>）</li>
+<li><code>RPC_GATEWAY_CORS_ORIGIN</code>（<code>*</code>）</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-indexer環境変数"><a class="header" href="#2-indexer環境変数">2. Indexer環境変数</a></h2>
+<p>定義: <code>tools/indexer/src/config.ts</code></p>
+<ul>
+<li>必須
+<ul>
+<li><code>EVM_CANISTER_ID</code></li>
+<li><code>INDEXER_DATABASE_URL</code></li>
+</ul>
+</li>
+<li>任意（既定値）
+<ul>
+<li><code>INDEXER_IC_HOST</code>（<code>https://icp-api.io</code>）</li>
+<li><code>INDEXER_DB_POOL_MAX</code>（<code>10</code>）</li>
+<li><code>INDEXER_RETENTION_DAYS</code>（<code>90</code>）</li>
+<li><code>INDEXER_RETENTION_ENABLED</code>（<code>true</code>）</li>
+<li><code>INDEXER_RETENTION_DRY_RUN</code>（<code>false</code>）</li>
+<li><code>INDEXER_ARCHIVE_GC_DELETE_ORPHANS</code>（<code>false</code>）</li>
+<li><code>INDEXER_MAX_BYTES</code>（<code>1200000</code>）</li>
+<li><code>INDEXER_BACKOFF_INITIAL_MS</code>（<code>200</code>）</li>
+<li><code>INDEXER_BACKOFF_MAX_MS</code>（<code>5000</code>）</li>
+<li><code>INDEXER_IDLE_POLL_MS</code>（<code>1000</code>）</li>
+<li><code>INDEXER_PRUNE_STATUS_POLL_MS</code>（<code>30000</code>）</li>
+<li><code>INDEXER_OPS_METRICS_POLL_MS</code>（<code>30000</code>）</li>
+<li><code>INDEXER_FETCH_ROOT_KEY</code>（<code>false</code>）</li>
+<li><code>INDEXER_ARCHIVE_DIR</code>（<code>./archive</code>）</li>
+<li><code>INDEXER_CHAIN_ID</code>（<code>4801360</code>）</li>
+<li><code>INDEXER_ZSTD_LEVEL</code>（<code>3</code>）</li>
+<li><code>INDEXER_MAX_SEGMENT</code>（<code>2</code>）</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-chain--runtime定数"><a class="header" href="#3-chain--runtime定数">3. Chain / Runtime定数</a></h2>
+<h3 id="chain-constants"><a class="header" href="#chain-constants">chain constants</a></h3>
+<p>定義: <code>crates/evm-db/src/chain_data/constants.rs</code></p>
+<ul>
+<li><code>CHAIN_ID = 4_801_360</code></li>
+<li><code>MAX_TX_SIZE = 128 * 1024</code></li>
+<li><code>MAX_TXS_PER_BLOCK = 1024</code></li>
+<li><code>MAX_PENDING_GLOBAL = 8192</code></li>
+<li><code>MAX_PENDING_PER_SENDER = 64</code></li>
+<li><code>MAX_PENDING_PER_PRINCIPAL = 32</code></li>
+<li><code>MAX_NONCE_WINDOW = 64</code></li>
+<li><code>MAX_LOGS_PER_TX = 64</code></li>
+<li><code>MAX_LOG_TOPICS = 4</code></li>
+</ul>
+<h3 id="runtime-defaults"><a class="header" href="#runtime-defaults">runtime defaults</a></h3>
+<p>定義: <code>crates/evm-db/src/chain_data/runtime_defaults.rs</code></p>
+<ul>
+<li><code>DEFAULT_MINING_INTERVAL_MS = 2000</code></li>
+<li><code>DEFAULT_BASE_FEE = 250_000_000_000</code></li>
+<li><code>DEFAULT_MIN_GAS_PRICE = 250_000_000_000</code></li>
+<li><code>DEFAULT_MIN_PRIORITY_FEE = 250_000_000_000</code></li>
+<li><code>DEFAULT_BLOCK_GAS_LIMIT = 3_000_000</code></li>
+<li><code>DEFAULT_INSTRUCTION_SOFT_LIMIT = 4_000_000_000</code></li>
+<li><code>DEFAULT_PRUNE_TIMER_INTERVAL_MS = 3_600_000</code></li>
+<li><code>DEFAULT_PRUNE_MAX_OPS_PER_TICK = 5_000</code></li>
+<li><code>MIN_PRUNE_TIMER_INTERVAL_MS = 1_000</code></li>
+<li><code>MIN_PRUNE_MAX_OPS_PER_TICK = 1</code></li>
+</ul>
+<h2 id="4-危険値注意"><a class="header" href="#4-危険値注意">4. 危険値・注意</a></h2>
+<ul>
+<li><code>INDEXER_CHAIN_ID</code> が実チェーンと不一致だと署名/検証系の運用が破綻しうる。</li>
+<li><code>RPC_GATEWAY_MAX_HTTP_BODY_SIZE</code> を過大化すると DoS耐性が下がる。</li>
+<li><code>DEFAULT_MIN_GAS_PRICE</code> / <code>DEFAULT_MIN_PRIORITY_FEE</code> を無根拠で下げると低feeスパム耐性が下がる。</li>
+</ul>
+<h2 id="根拠-29"><a class="header" href="#根拠-29">根拠</a></h2>
+<ul>
+<li><code>tools/rpc-gateway/src/config.ts</code></li>
+<li><code>tools/indexer/src/config.ts</code></li>
+<li><code>crates/evm-db/src/chain_data/constants.rs</code></li>
+<li><code>crates/evm-db/src/chain_data/runtime_defaults.rs</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<blockquote>
+<p>English version: /en/doc/_generated/open-questions.html</p>
+</blockquote>
+<h1 id="open-questions"><a class="header" href="#open-questions">Open Questions</a></h1>
+<p>現在、このドキュメントセット内に保留事項はありません。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+
+    </div>
+    </body>
+</html>

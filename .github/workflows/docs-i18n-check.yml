@@ -1,0 +1,19 @@
+name: Docs i18n Sync Check
+
+on:
+  pull_request:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify i18n sync
+        run: scripts/docs/verify_i18n_sync.sh

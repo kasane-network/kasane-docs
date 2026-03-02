@@ -1,18 +1,14 @@
-# Deprecated: use language-specific configs instead.
-# - Japanese: book.ja.toml
-# - English:  book.en.toml
-
 [book]
 title = "Kasane Developer Docs"
 description = "Kasane EVM compatibility documentation"
-language = "ja"
-src = "books/ja"
+language = "en"
+src = "books/en"
 
 [build]
-build-dir = "build/ja"
+build-dir = "build/en"
 create-missing = false
 
 [output.html]
 default-theme = "light"
 preferred-dark-theme = "navy"
-site-url = "/ja/"
+site-url = "/en/"
