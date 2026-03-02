@@ -8,6 +8,8 @@
 - `eth_feeHistory` は対応済み（`blockCount` は number/QUANTITY/10進文字列を受理）。
 - `eth_gasPrice` は `base_fee` 単体ではなく、受理条件に寄せた推定値を返す。
 
+適用範囲: 本ページはJSON-RPC差分の詳細。全体ポリシーは `../rpc/overview.md` を正本とする。
+
 ## メソッド別差分（要点）
 - `eth_getBalance`
   - `latest/pending/safe/finalized/earliest/QUANTITY` を受理

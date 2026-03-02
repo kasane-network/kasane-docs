@@ -34,6 +34,8 @@
 3. `submit_ic_tx` を送る
 4. `get_pending(tx_id)` / `get_receipt(tx_id)` で追跡する
 
+pending/mempool運用ポリシーの正本は `../rpc/overview.md` を参照。
+
 ## 落とし穴
 - Principalエンコード値をそのままaddressとして投入する
 - `expected_nonce_by_address` に20 bytes以外を渡す

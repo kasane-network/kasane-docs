@@ -4,7 +4,7 @@
 - 外部I/Fは `Candid`（canister直呼び）と `HTTP JSON-RPC`（gateway）の2系統。
 - JSON-RPCは Ethereum完全互換ではなく、制限付き実装。
 - `eth_sendRawTransaction` は submit成功≠実行成功。`eth_getTransactionReceipt.status` を成功条件にする。
-- pending/mempool は Ethereum互換APIとしては非対応。送信済み tx の追跡は canister `get_pending(tx_id)` を使う。
+- pending/mempool は Ethereum互換APIとしては未対応。送信済み tx の追跡は canister `get_pending(tx_id)` を使う。
 
 ## 1. Candid API（公開service）
 公開定義: `crates/ic-evm-wrapper/evm_canister.did`
@@ -85,24 +85,12 @@
 - `eth_unsubscribe`
 - `eth_pendingTransactions`
 
-## 3. JSON-RPC制約（抜粋）
-- `eth_getBalance` / `eth_getCode` / `eth_getStorageAt`
-  - `latest/pending/safe/finalized/earliest/QUANTITY` を受理
-  - historical（head未満）は多くが `state unavailable` または out-of-window
-- `eth_getTransactionCount`
-  - `pending` は pending nonce を返す
-  - `earliest` / 過去nonce は実質非対応
-- `eth_call` / `eth_estimateGas`
-  - `latest/pending/safe/finalized/earliest/QUANTITY` を受理
-  - historical execution は非対応
-- `eth_getLogs`
-  - `address` は単一のみ
-  - `topics[0]` OR配列は対応（上限あり）
-  - `topics[1+]` 条件は非対応
-  - `blockHash` は条件付き対応（走査上限あり）
-- pending/mempool系
-  - `eth_pendingTransactions` は未対応
-  - WebSocket購読（`eth_subscribe`）は未対応
+## 3. 制約の正本
+- 全体ポリシーの正本: `../rpc/overview.md`
+- JSON-RPC差分の正本: `../compatibility/json-rpc-deviations.md`
+- pending/mempool運用の正本: `../rpc/overview.md` の「Pending/Mempoolポリシー」
+
+本ページは「インターフェース一覧」の要約に限定し、詳細な挙動差分は上記正本に集約する。
 
 ## 4. 返却・識別子の注意
 - canister内部識別子: `tx_id`

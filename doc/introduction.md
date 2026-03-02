@@ -12,7 +12,7 @@ JSON-RPCは Ethereum完全互換ではなく、開発用途の制限付き互換
 - indexer で `export_blocks` を pull し、Postgresへ保持する
 
 ## できないこと（現行実装）
-- Ethereumノード完全互換（mempool/filter/WebSocket full、`eth_pendingTransactions` など）
+- Ethereum JSON-RPC 互換は制限付き（未対応メソッドは互換仕様ページを参照）
 - node運用向けワークフローの提供（本書対象外）
 
 ## 互換の立ち位置
@@ -30,3 +30,7 @@ JSON-RPCは Ethereum完全互換ではなく、開発用途の制限付き互換
 - `README.md`（運用サマリ、互換方針）
 - `tools/rpc-gateway/README.md`（Gatewayの互換表）
 - `crates/ic-evm-wrapper/evm_canister.did`（公開I/F）
+
+## 互換仕様の正本
+- JSON-RPC互換ポリシーの正本: `./rpc/overview.md`
+- メソッド差分の詳細: `./compatibility/json-rpc-deviations.md`

@@ -71,5 +71,4 @@
 * [Repo Map](doc/_generated/repo-map.md)
 * [Interfaces](doc/_generated/interfaces.md)
 * [Config Reference (Full)](doc/_generated/config-reference.md)
-* [Glossary Seeds](doc/_generated/glossary-seeds.md)
 * [Open Questions](doc/_generated/open-questions.md)

@@ -17,3 +17,5 @@
 ## 根拠
 - `tools/rpc-gateway/src/handlers.ts`
 - `crates/ic-evm-rpc/src/lib.rs`
+
+詳細な制約差分は `../compatibility/json-rpc-deviations.md` を参照。

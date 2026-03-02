@@ -21,8 +21,9 @@
 - WebSocket購読（`eth_subscribe`）
 - `eth_getLogs` の完全互換（filter制約あり）
 
----
+互換ポリシー詳細は `./rpc/overview.md` と `./compatibility/json-rpc-deviations.md` を参照。
 
+---
 ## 前提条件
 - 公開RPC: `https://rpc-testnet.kasane.network`
 - chain id: `4801360`
