@@ -27,4 +27,4 @@
 ## 根拠
 - `tools/rpc-gateway/src/handlers.ts`
 - `tools/rpc-gateway/README.md`
-- `crates/ic-evm-wrapper/src/lib.rs`（`get_ops_status`）
+- `crates/ic-evm-gateway/src/lib.rs`（`get_ops_status`）

@@ -1,4 +1,4 @@
-<!-- ja-source-hash: f7bf26e41c30cff192b9e9b5019377a33f7e488c -->
+<!-- ja-source-hash: 6aa9c619dbca36e411d5b76cd6eff639a6d7009e -->
 > Japanese version: /ja/doc/troubleshooting.html
 
 # Troubleshooting Guide
@@ -28,4 +28,4 @@
 ## Sources
 - `tools/rpc-gateway/src/handlers.ts`
 - `tools/rpc-gateway/README.md`
-- `crates/ic-evm-wrapper/src/lib.rs` (`get_ops_status`)
+- `crates/ic-evm-gateway/src/lib.rs` (`get_ops_status`)

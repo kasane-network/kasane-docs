@@ -1,4 +1,4 @@
-<!-- ja-source-hash: 1453935c3ab64d0178544db96bc5226ab97627de -->
+<!-- ja-source-hash: 93b9398b21336170952279c0855d6f7d86c857fe -->
 > Japanese version: /ja/doc/rpc/overview.html
 
 # RPC Overview
@@ -30,4 +30,4 @@
 ## Sources
 - `tools/rpc-gateway/src/handlers.ts` (`handleRpc`)
 - `tools/rpc-gateway/README.md`
-- `crates/ic-evm-wrapper/src/lib.rs` (`get_pending`)
+- `crates/ic-evm-gateway/src/lib.rs` (`get_pending`)

@@ -1,4 +1,4 @@
-<!-- ja-source-hash: 918aedfe2125581c451236937463b3fbfcb19150 -->
+<!-- ja-source-hash: 1fad4e996dd0eae48d3efa2413b623d12b260509 -->
 > Japanese version: /ja/doc/integration/signing-nonce-retries.html
 
 # Signing, Nonce, Retries
@@ -22,4 +22,4 @@
 ## Sources
 - `README.md`
 - `tools/rpc-gateway/README.md`
-- `crates/ic-evm-wrapper/src/lib.rs`
+- `crates/ic-evm-gateway/src/lib.rs`

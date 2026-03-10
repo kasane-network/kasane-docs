@@ -1,4 +1,4 @@
-<!-- ja-source-hash: 289d5bfb1ca2ad51a4e0157d3f56db1988918bd5 -->
+<!-- ja-source-hash: 3c52237a86bed4ae52618442aa883f65b7652a9d -->
 > Japanese version: /ja/doc/quickstart.html
 
 # Quickstart (Gateway + Candid)
@@ -228,7 +228,7 @@ Track with:
 - `tools/rpc-gateway/README.md`
 - `docs/api/rpc_eth_send_raw_transaction_payload.md`
 - `crates/evm-core/src/test_bin/eth_raw_tx.rs`
-- `crates/ic-evm-wrapper/evm_canister.did`
+- `crates/ic-evm-gateway/evm_canister.did`
 - `tools/rpc-gateway/src/handlers.ts`
-- `crates/ic-evm-wrapper/src/lib.rs` (`submit_ic_tx`, `expected_nonce_by_address`)
+- `crates/ic-evm-gateway/src/lib.rs` (`submit_ic_tx`, `expected_nonce_by_address`)
 - `crates/evm-core/src/chain.rs` (`TxIn::IcSynthetic`, submit validation)

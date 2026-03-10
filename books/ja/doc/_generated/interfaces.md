@@ -9,7 +9,10 @@
 - pending/mempool は Ethereum互換APIとしては未対応。送信済み tx の追跡は canister `get_pending(tx_id)` を使う。
 
 ## 1. Candid API（公開service）
-公開定義: `crates/ic-evm-wrapper/evm_canister.did`
+公開定義: `crates/ic-evm-gateway/evm_canister.did`
+
+- precompile profile 計測専用メソッドは公開 DID に含めない。
+- 内部計測 build では別の admin DID を使う: `crates/ic-evm-gateway/evm_canister_precompile_profile_admin.did`
 
 ### 主要query
 - `rpc_eth_chain_id`
@@ -107,7 +110,8 @@
 - `PendingStatusView`（`Queued` / `Included` / `Dropped` / `Unknown`）
 
 ## 根拠
-- `crates/ic-evm-wrapper/evm_canister.did`
+- `crates/ic-evm-gateway/evm_canister.did`
+- `crates/ic-evm-gateway/evm_canister_precompile_profile_admin.did`
 - `tools/rpc-gateway/src/handlers.ts`
 - `tools/rpc-gateway/README.md`
-- `crates/ic-evm-wrapper/src/lib.rs`（`get_pending`, `rpc_eth_send_raw_transaction`）
+- `crates/ic-evm-gateway/src/lib.rs`（`get_pending`, `rpc_eth_send_raw_transaction`）

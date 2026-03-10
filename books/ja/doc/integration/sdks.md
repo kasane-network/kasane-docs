@@ -8,4 +8,4 @@
 
 ## 根拠
 - `tools/rpc-gateway/package.json`
-- `crates/ic-evm-wrapper/evm_canister.did`
+- `crates/ic-evm-gateway/evm_canister.did`

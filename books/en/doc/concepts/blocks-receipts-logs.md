@@ -1,4 +1,4 @@
-<!-- ja-source-hash: 7f8c42299f508fc54741434f8cf27c91aad56353 -->
+<!-- ja-source-hash: 54cfb19a39fecdb896d1312f802185c3c71a4a6c -->
 > Japanese version: /ja/doc/concepts/blocks-receipts-logs.html
 
 # Blocks, Receipts, Logs
@@ -16,6 +16,6 @@
 - Mixing `tx_id` and `eth_tx_hash` lookup paths
 
 ## Sources
-- `crates/ic-evm-wrapper/evm_canister.did`
+- `crates/ic-evm-gateway/evm_canister.did`
 - `crates/ic-evm-rpc/src/lib.rs`
 - `tools/rpc-gateway/src/handlers.ts`

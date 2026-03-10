@@ -12,7 +12,7 @@
 - 実装メソッドは `handleRpc` の switch が正本
 
 ## 主なユースケースと制約
-- 基本参照、`call`、`estimate`、raw tx投入に対応
+- 基本参照、`call`、`estimate`、raw tx の投入に対応
 - filter/ws/pending は互換差分あり（詳細は各ページ参照）
 
 ## Pending/Mempoolポリシー
@@ -29,4 +29,4 @@
 ## 根拠
 - `tools/rpc-gateway/src/handlers.ts`（`handleRpc`）
 - `tools/rpc-gateway/README.md`
-- `crates/ic-evm-wrapper/src/lib.rs`（`get_pending`）
+- `crates/ic-evm-gateway/src/lib.rs`（`get_pending`）
