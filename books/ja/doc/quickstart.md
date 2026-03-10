@@ -3,19 +3,19 @@
 # Quickstart (Gateway + Candid)
 
 ## TL;DR
-- 既定ネットワークは public testnet（`chain_id=4801360`、RPC: `https://rpc-testnet.kasane.network`）。
-- 導線は2つ: Path A（Gateway JSON-RPC）/ Path B（canister Candid直呼び）。
+- 既定ネットワークは公開テストネット（`chain_id=4801360`、RPC: `https://rpc-testnet.kasane.network`）。
+- 導線は2つ: パスA（Gateway JSON-RPC）/ パスB（canister Candid直呼び）。
 - 送信成功判定は submit結果ではなく `eth_getTransactionReceipt.status`。
 - `tx_id` と `eth_tx_hash` は別物。
-- deploy/call は署名済み raw tx を用いた送信手順に統一する。
+- デプロイや呼び出しは、署名済み raw tx を使う送信手順に統一する。
 
 ## できること / できないこと
 
 ### できること
 - 接続確認（chain id / block number）
-- ネイティブ送金（署名済みraw tx投入）
-- receipt監視（成功/失敗判定）
-- query系の状態参照（balance/code/storage/call/estimate）
+- ネイティブ送金（署名済み raw tx の投入）
+- receipt 監視（成功/失敗判定）
+- query 系の状態参照（balance/code/storage/call/estimate）
 
 ### できないこと（現行）
 - Ethereum標準の pending/mempool API 前提のフロー（`eth_pendingTransactions` など）
@@ -27,15 +27,15 @@
 
 ---
 ## 前提条件
-- 公開RPC: `https://rpc-testnet.kasane.network`
+- 公開 RPC: `https://rpc-testnet.kasane.network`
 - chain id: `4801360`
-- canister id（testnet運用値）: `4c52m-aiaaa-aaaam-agwwa-cai`
-- `dfx`（canister query/updateを使う場合）
-- Gateway経由で送信する場合は署名済み raw tx を用意
+- canister id（テストネット運用値）: `4c52m-aiaaa-aaaam-agwwa-cai`
+- `dfx`（canister の query/update を使う場合）
+- Gateway 経由で送信する場合は署名済み raw tx を用意
 
 ---
 
-## Path A: Gateway JSON-RPC
+## パスA: Gateway JSON-RPC
 
 ### 1) 接続確認
 ```bash
@@ -61,9 +61,9 @@ curl -s -X POST "$RPC_URL" -H 'content-type: application/json' \
 ```
 
 期待結果:
-- `result` に `0x...` tx hash が返る（Gatewayが `tx_id` から `eth_tx_hash` を解決）
+- `result` に `0x...` tx hash が返る（Gateway が `tx_id` から `eth_tx_hash` を解決）
 
-### 3) receipt監視（成功判定）
+### 3) receipt 監視（成功判定）
 ```bash
 TX_HASH="0x<tx_hash_from_send>"
 
@@ -87,7 +87,7 @@ curl -s -X POST "$RPC_URL" -H 'content-type: application/json' \
 
 ---
 
-## Path B: canister Candid直呼び
+## パスB: canister Candid直呼び
 
 ### 1) 接続確認（query）
 ```bash
@@ -109,7 +109,7 @@ dfx canister call --network "$NETWORK" --query "$CANISTER_ID" rpc_eth_block_numb
 - `data: vec nat8`
 
 `IcSynthetic` では `from` をpayloadに含めません。  
-wrapper が `msg_caller()` と `canister_self()` を付与して core の `TxIn::IcSynthetic` に渡し、sender を決定します。
+gateway canister が `msg_caller()` と `canister_self()` を付与して core の `TxIn::IcSynthetic` に渡し、sender を決定します。
 
 ```bash
 # 例: to=0x...01 / value=0 / gas_limit=500000 / data=""
@@ -136,9 +136,9 @@ dfx canister call --network "$NETWORK" "$CANISTER_ID" submit_ic_tx "(record {
 
 1. 送信前に chain/network を確認する  
    - `rpc_eth_chain_id` が `4801360` であること
-2. 送信元nonceを確認する  
-   - `expected_nonce_by_address(20 bytes)` を呼び、現在nonceを取得
-3. fee/gasを決める  
+2. 送信元 nonce を確認する  
+   - `expected_nonce_by_address(20 bytes)` を呼び、現在 nonce を取得
+3. fee/gas を決める  
    - `rpc_eth_gas_price` / `rpc_eth_max_priority_fee_per_gas` を参照し、下限以上を設定
 4. `submit_ic_tx(record)` を1回送る  
    - 返り値 `tx_id` を保存
@@ -155,10 +155,10 @@ dfx canister call --network "$NETWORK" "$CANISTER_ID" submit_ic_tx "(record {
   - anonymous拒否（`auth.anonymous_forbidden`）
   - migration/cycle状態で write拒否（`ops.write.*`）
 - decode/検証
-  - payloadサイズ/形式
-  - sender導出失敗は `arg.principal_to_evm_derivation_failed`
-  - fee条件不一致は `submit.invalid_fee`
-  - nonce不一致は `submit.nonce_too_low` / `submit.nonce_gap` / `submit.nonce_conflict`
+  - payload サイズ/形式
+  - sender 導出失敗は `arg.principal_to_evm_derivation_failed`
+  - fee 条件不一致は `submit.invalid_fee`
+  - nonce 不一致は `submit.nonce_too_low` / `submit.nonce_gap` / `submit.nonce_conflict`
 - 正常時は `tx_id` を返し、採掘は非同期（`auto-production`）
 
 ### 3) nonce取得
@@ -169,9 +169,9 @@ dfx canister call --network "$NETWORK" --query "$CANISTER_ID" expected_nonce_by_
 
 注意:
 - `expected_nonce_by_address` は 20 bytes address のみ受理
-- 32 bytes（bytes32エンコードprincipalの誤投入）には明示エラーを返す
+- 32 bytes（bytes32 エンコード principal の誤投入）には明示エラーを返す
 
-### 4) raw tx投入（EthSigned）
+### 4) raw tx 投入（EthSigned）
 既存ヘルパー `eth_raw_tx` を使って raw tx bytes を作る:
 ```bash
 CHAIN_ID=4801360
@@ -216,7 +216,7 @@ dfx canister call --network "$NETWORK" "$CANISTER_ID" rpc_eth_send_raw_transacti
 
 ### 実行フロー
 1. `eth_estimateGas` で deploy tx の gas を見積もる。
-2. deploy用 raw tx を生成し、`eth_sendRawTransaction` で送信する。
+2. deploy 用 raw tx を生成し、`eth_sendRawTransaction` で送信する。
 3. 返却された `eth_tx_hash` を `eth_getTransactionReceipt` で追跡する。
 4. `receipt.contractAddress` にデプロイ先アドレスが入ることを確認する。
 
@@ -227,7 +227,7 @@ dfx canister call --network "$NETWORK" "$CANISTER_ID" rpc_eth_send_raw_transacti
 - `tools/rpc-gateway/README.md`
 - `docs/api/rpc_eth_send_raw_transaction_payload.md`
 - `crates/evm-core/src/test_bin/eth_raw_tx.rs`
-- `crates/ic-evm-wrapper/evm_canister.did`
+- `crates/ic-evm-gateway/evm_canister.did`
 - `tools/rpc-gateway/src/handlers.ts`
-- `crates/ic-evm-wrapper/src/lib.rs`（`submit_ic_tx`, `expected_nonce_by_address`）
+- `crates/ic-evm-gateway/src/lib.rs`（`submit_ic_tx`, `expected_nonce_by_address`）
 - `crates/evm-core/src/chain.rs`（`TxIn::IcSynthetic`, submit検証）

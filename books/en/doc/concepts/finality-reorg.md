@@ -1,4 +1,4 @@
-<!-- ja-source-hash: 9d5e8bd9550ee245c946257fc19fc37f34936cd3 -->
+<!-- ja-source-hash: 77ece8c2911767e81f7bf3caac53d7cebce79734 -->
 > Japanese version: /ja/doc/concepts/finality-reorg.html
 
 # Finality & Reorg
@@ -18,4 +18,4 @@
 ## Sources
 - `README.md`
 - `tools/rpc-gateway/README.md`
-- `crates/ic-evm-wrapper/src/lib.rs`
+- `crates/ic-evm-gateway/src/lib.rs`

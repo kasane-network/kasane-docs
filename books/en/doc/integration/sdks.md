@@ -1,4 +1,4 @@
-<!-- ja-source-hash: 3e03aedf19ec4f38aa159332105dcf1ef4f9538a -->
+<!-- ja-source-hash: 40cfe4c71b1bd3309874258026a4b97f2b46f0e2 -->
 > Japanese version: /ja/doc/integration/sdks.html
 
 # SDKs
@@ -9,4 +9,4 @@
 
 ## Sources
 - `tools/rpc-gateway/package.json`
-- `crates/ic-evm-wrapper/evm_canister.did`
+- `crates/ic-evm-gateway/evm_canister.did`

@@ -1,4 +1,4 @@
-<!-- ja-source-hash: 5ce0603c094beed98e9d2948f7728f13f3226b52 -->
+<!-- ja-source-hash: 3e037b6ee4bedd1b1db3f020a7113625cc946019 -->
 > Japanese version: /ja/doc/introduction.html
 
 # What is Kasane
@@ -32,7 +32,7 @@ The compatibility target is Ethereum JSON-RPC plus EVM execution semantics, whil
 ## Sources
 - `README.md` (operational summary and compatibility policy)
 - `tools/rpc-gateway/README.md` (Gateway compatibility matrix)
-- `crates/ic-evm-wrapper/evm_canister.did` (public interface)
+- `crates/ic-evm-gateway/evm_canister.did` (public interface)
 
 ## Source of Truth for Compatibility
 - Canonical JSON-RPC policy: `./rpc/overview.md`

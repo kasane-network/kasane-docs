@@ -1,4 +1,4 @@
-<!-- ja-source-hash: fec876cd0f1511c4c94953861aa872a300cc36c6 -->
+<!-- ja-source-hash: a6777912a44bc740f3dd5b9a93024340765f8e5d -->
 > Japanese version: /ja/doc/concepts/accounts-keys.html
 
 # Accounts & Keys
@@ -46,7 +46,7 @@ For canonical pending/mempool policy, see `../rpc/overview.md`.
 - Treating submit success as execution success
 
 ## Sources
-- `crates/ic-evm-wrapper/src/lib.rs` (`expected_nonce_by_address`)
+- `crates/ic-evm-gateway/src/lib.rs` (`expected_nonce_by_address`)
 - `crates/evm-core/src/tx_decode.rs` (`IcSynthetic` / `EthSigned`)
 - `crates/evm-core/src/chain.rs` (`TxIn::IcSynthetic`)
 - `README.md`

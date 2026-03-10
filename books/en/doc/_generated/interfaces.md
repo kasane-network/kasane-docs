@@ -1,4 +1,4 @@
-<!-- ja-source-hash: 790fd1e9ef82f094701710ca1edd6df7ef541cf0 -->
+<!-- ja-source-hash: cfa8f79823b13688e6d93001d8ed28ada8adcbde -->
 > Japanese version: /ja/doc/_generated/interfaces.html
 
 # Interfaces
@@ -10,7 +10,10 @@
 - pending/mempool is not available as Ethereum-compatible APIs; use canister `get_pending(tx_id)` to track submitted tx.
 
 ## 1. Candid API (Public Service)
-Public definition: `crates/ic-evm-wrapper/evm_canister.did`
+Public definition: `crates/ic-evm-gateway/evm_canister.did`
+
+- Measurement-only precompile profiling methods are not part of the public DID.
+- Internal profiling builds use a separate admin DID: `crates/ic-evm-gateway/evm_canister_precompile_profile_admin.did`.
 
 ### Main query methods
 - `rpc_eth_chain_id`
@@ -108,7 +111,8 @@ This page is intentionally limited to interface inventory. Detailed behavior dif
 - `PendingStatusView` (`Queued` / `Included` / `Dropped` / `Unknown`)
 
 ## Sources
-- `crates/ic-evm-wrapper/evm_canister.did`
+- `crates/ic-evm-gateway/evm_canister.did`
+- `crates/ic-evm-gateway/evm_canister_precompile_profile_admin.did`
 - `tools/rpc-gateway/src/handlers.ts`
 - `tools/rpc-gateway/README.md`
-- `crates/ic-evm-wrapper/src/lib.rs` (`get_pending`, `rpc_eth_send_raw_transaction`)
+- `crates/ic-evm-gateway/src/lib.rs` (`get_pending`, `rpc_eth_send_raw_transaction`)

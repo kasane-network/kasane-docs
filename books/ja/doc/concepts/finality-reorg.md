@@ -17,4 +17,4 @@
 ## 根拠
 - `README.md`
 - `tools/rpc-gateway/README.md`
-- `crates/ic-evm-wrapper/src/lib.rs`
+- `crates/ic-evm-gateway/src/lib.rs`

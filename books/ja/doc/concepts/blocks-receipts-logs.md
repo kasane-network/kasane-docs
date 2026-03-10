@@ -15,6 +15,6 @@
 - `tx_id` と `eth_tx_hash` の照会経路を混在させる
 
 ## 根拠
-- `crates/ic-evm-wrapper/evm_canister.did`
+- `crates/ic-evm-gateway/evm_canister.did`
 - `crates/ic-evm-rpc/src/lib.rs`
 - `tools/rpc-gateway/src/handlers.ts`

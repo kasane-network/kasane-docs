@@ -1,4 +1,4 @@
-<!-- ja-source-hash: 913a4bacf6383f76f60380425660e9c7172ed45d -->
+<!-- ja-source-hash: 728582a7db00facc5bfbc20001de7befc97fe74b -->
 > Japanese version: /ja/doc/integration/indexer-integration-points.html
 
 # Indexer Integration Points
@@ -9,6 +9,6 @@
 - Design cursor workflow with pruning in mind.
 
 ## Sources
-- `crates/ic-evm-wrapper/evm_canister.did`
+- `crates/ic-evm-gateway/evm_canister.did`
 - `tools/indexer/README.md`
 - `docs/specs/indexer-v1.md`

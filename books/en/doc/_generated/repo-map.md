@@ -1,4 +1,4 @@
-<!-- ja-source-hash: f3bf158b808f3f7d6e91bbe598d48a32bf42b75b -->
+<!-- ja-source-hash: e082a6c2f47550337d02b5e923855a53cc045941 -->
 > Japanese version: /ja/doc/_generated/repo-map.html
 
 # Repo Map
@@ -6,13 +6,13 @@
 This page organizes "what lives where" in the Kasane repository using primary sources only.
 
 ## TL;DR
-- Main EVM canister implementation is `ic-evm-wrapper` in the Rust workspace.
+- Main EVM canister implementation is `ic-evm-gateway` in the Rust workspace.
 - Execution logic is in `evm-core`, persistence/constants in `evm-db`, and RPC helpers in `ic-evm-rpc`.
-- Main developer-facing entry points are `tools/rpc-gateway` (HTTP JSON-RPC) and `crates/ic-evm-wrapper/evm_canister.did` (Candid).
+- Main developer-facing entry points are `tools/rpc-gateway` (HTTP JSON-RPC) and `crates/ic-evm-gateway/evm_canister.did` (Candid).
 - Indexer is `tools/indexer` (Postgres-first).
 
 ## Key Directories
-- `crates/ic-evm-wrapper`
+- `crates/ic-evm-gateway`
   - canister entrypoints (`#[ic_cdk::query]` / `#[ic_cdk::update]`)
   - public Candid definition (`evm_canister.did`)
 - `crates/evm-core`
@@ -21,7 +21,7 @@ This page organizes "what lives where" in the Kasane repository using primary so
 - `crates/evm-db`
   - stable state, chain constants, runtime defaults, receipt/block/tx types
 - `crates/ic-evm-rpc`
-  - RPC helper logic called by wrapper (eth reads/transforms)
+  - RPC helper logic called by the gateway canister (eth reads/transforms)
 - `tools/rpc-gateway`
   - translates canister Candid API to Ethereum JSON-RPC 2.0
 - `tools/indexer`
@@ -34,7 +34,7 @@ This page organizes "what lives where" in the Kasane repository using primary so
 ## Entrypoints
 - canister build/runtime
   - `dfx.json` `canisters.evm_canister`
-  - `crates/ic-evm-wrapper/src/lib.rs`
+  - `crates/ic-evm-gateway/src/lib.rs`
 - gateway runtime
   - `tools/rpc-gateway/src/main.ts`
   - `tools/rpc-gateway/src/server.ts`
@@ -56,6 +56,6 @@ This page organizes "what lives where" in the Kasane repository using primary so
 - `Cargo.toml` (workspace members)
 - `dfx.json` (canister package/candid)
 - `icp.yaml` (deploy recipe)
-- `crates/ic-evm-wrapper/src/lib.rs` (canister entrypoint)
+- `crates/ic-evm-gateway/src/lib.rs` (canister entrypoint)
 - `tools/rpc-gateway/src/main.ts` (gateway entrypoint)
 - `tools/indexer/README.md` (indexer responsibilities)
